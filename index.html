@@ -6,178 +6,159 @@
 <title>Quiz Puy du Fou — Le Grand Défi</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-:root{
-  --gold:#C9922A;--gold-light:#E8B84B;--gold-pale:#F5D98A;
-  --dark:#0D0A06;--dark2:#1A1208;--dark3:#251A0A;
-  --parchment:#F2E6C8;--parchment2:#E8D4A8;--red:#8B1A1A;
-  --easy-bg:rgba(46,125,50,.18);--easy-border:rgba(76,175,80,.4);--easy-color:#a5d6a7;
-  --medium-bg:rgba(230,145,0,.15);--medium-border:rgba(255,167,38,.4);--medium-color:#ffcc80;
-  --hard-bg:rgba(139,26,26,.2);--hard-border:rgba(198,57,57,.4);--hard-color:#ef9a9a;
-  --extreme-bg:rgba(74,0,130,.25);--extreme-border:rgba(156,39,176,.5);--extreme-color:#ce93d8;
-}
+:root{--gold:#C9922A;--gold-light:#E8B84B;--gold-pale:#F5D98A;--dark:#0D0A06;--parchment:#F2E6C8;--parchment2:#E8D4A8;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{font-family:'EB Garamond',serif;background:var(--dark);color:var(--parchment);min-height:100vh;overflow-x:hidden;}
-.bg-layer{position:fixed;inset:0;z-index:0;
-  background:radial-gradient(ellipse 120% 80% at 50% 0%,#3a1e00 0%,transparent 60%),
-             radial-gradient(ellipse 80% 60% at 80% 100%,#1a0a00 0%,transparent 50%),
-             linear-gradient(180deg,#0D0A06 0%,#1A0E04 40%,#0D0A06 100%);}
-.bg-layer::before{content:'';position:absolute;inset:0;
-  background-image:radial-gradient(1px 1px at 20% 30%,rgba(255,200,80,.4) 0%,transparent 100%),
-                   radial-gradient(1px 1px at 80% 10%,rgba(255,200,80,.3) 0%,transparent 100%),
-                   radial-gradient(1px 1px at 50% 70%,rgba(255,220,100,.2) 0%,transparent 100%);
-  animation:twinkle 8s ease-in-out infinite alternate;}
+.bg-layer{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 120% 80% at 50% 0%,#3a1e00,transparent 60%),radial-gradient(ellipse 80% 60% at 80% 100%,#1a0a00,transparent 50%),linear-gradient(180deg,#0D0A06,#1A0E04 40%,#0D0A06);}
+.bg-layer::before{content:'';position:absolute;inset:0;background-image:radial-gradient(1px 1px at 20% 30%,rgba(255,200,80,.4),transparent),radial-gradient(1px 1px at 80% 10%,rgba(255,200,80,.3),transparent),radial-gradient(1px 1px at 50% 70%,rgba(255,220,100,.2),transparent);animation:twinkle 8s ease-in-out infinite alternate;}
 @keyframes twinkle{from{opacity:.4}to{opacity:1}}
 .particles{position:fixed;inset:0;z-index:0;pointer-events:none;}
-.particle{position:absolute;border-radius:50%;background:radial-gradient(circle,var(--gold-light) 0%,transparent 70%);animation:float linear infinite;opacity:0;}
-@keyframes float{0%{transform:translateY(100vh) translateX(0) scale(0);opacity:0;}10%{opacity:.6;}90%{opacity:.3;}100%{transform:translateY(-20px) translateX(var(--drift)) scale(1);opacity:0;}}
+.particle{position:absolute;border-radius:50%;background:radial-gradient(circle,var(--gold-light),transparent 70%);animation:float linear infinite;opacity:0;}
+@keyframes float{0%{transform:translateY(100vh) scale(0);opacity:0;}10%{opacity:.6;}90%{opacity:.3;}100%{transform:translateY(-20px) translateX(var(--drift)) scale(1);opacity:0;}}
 .wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:0 16px 80px;}
 .screen{display:none;animation:fadeIn .5s ease;}
 .screen.active{display:block;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-.site-header{text-align:center;padding:48px 0 32px;border-bottom:1px solid rgba(201,146,42,.25);}
-.crest{font-size:clamp(40px,8vw,64px);line-height:1;filter:drop-shadow(0 0 20px rgba(201,146,42,.7));margin-bottom:8px;}
-.site-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(22px,5vw,42px);font-weight:900;line-height:1.1;
-  background:linear-gradient(135deg,#c9922a 0%,#f5d98a 40%,#e8b84b 60%,#c9922a 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  filter:drop-shadow(0 2px 8px rgba(201,146,42,.5));letter-spacing:.04em;}
-.site-sub{font-family:'Cinzel',serif;font-size:clamp(11px,2vw,14px);letter-spacing:.25em;text-transform:uppercase;color:var(--gold);opacity:.8;margin-top:8px;}
-.ornament{color:var(--gold);font-size:20px;margin:8px;opacity:.6;}
-.welcome-card{background:linear-gradient(135deg,rgba(26,18,8,.95) 0%,rgba(37,26,10,.9) 100%);
-  border:1px solid rgba(201,146,42,.4);border-radius:8px;padding:clamp(24px,5vw,48px);margin-top:32px;
-  text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.6),inset 0 1px 0 rgba(201,146,42,.2);}
-.welcome-card h2{font-family:'Cinzel',serif;font-size:clamp(18px,4vw,28px);color:var(--gold-light);margin-bottom:16px;letter-spacing:.06em;}
-.welcome-card p{font-size:clamp(15px,2.5vw,18px);line-height:1.8;color:var(--parchment2);max-width:560px;margin:0 auto 24px;}
-.badge-row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:16px 0;}
-.badge{background:rgba(201,146,42,.12);border:1px solid rgba(201,146,42,.3);border-radius:4px;padding:8px 16px;font-size:13px;color:var(--gold-pale);font-family:'Cinzel',serif;letter-spacing:.05em;}
-.name-section{margin:20px 0;}
-.name-section label{display:block;font-family:'Cinzel',serif;font-size:13px;letter-spacing:.1em;color:var(--gold);margin-bottom:8px;text-transform:uppercase;}
-.name-section input{width:100%;max-width:320px;background:rgba(0,0,0,.4);border:1px solid rgba(201,146,42,.4);
-  border-radius:4px;color:var(--parchment);font-family:'EB Garamond',serif;font-size:17px;
-  padding:10px 14px;outline:none;text-align:center;transition:border-color .2s,box-shadow .2s;}
+/* HEADER */
+.site-header{text-align:center;padding:40px 0 28px;border-bottom:1px solid rgba(201,146,42,.25);}
+.crest{font-size:clamp(36px,7vw,58px);filter:drop-shadow(0 0 20px rgba(201,146,42,.7));margin-bottom:6px;}
+.site-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(20px,5vw,40px);font-weight:900;background:linear-gradient(135deg,#c9922a,#f5d98a 40%,#e8b84b 60%,#c9922a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.site-sub{font-family:'Cinzel',serif;font-size:clamp(10px,2vw,13px);letter-spacing:.25em;text-transform:uppercase;color:var(--gold);opacity:.8;margin-top:6px;}
+.ornament{color:var(--gold);font-size:18px;margin:6px;opacity:.6;}
+/* CARDS */
+.welcome-card,.result-card{background:linear-gradient(135deg,rgba(26,18,8,.95),rgba(37,26,10,.9));border:1px solid rgba(201,146,42,.4);border-radius:8px;padding:clamp(20px,5vw,44px);margin-top:28px;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.6),inset 0 1px 0 rgba(201,146,42,.2);}
+.welcome-card h2{font-family:'Cinzel',serif;font-size:clamp(16px,4vw,26px);color:var(--gold-light);margin-bottom:14px;letter-spacing:.06em;}
+.welcome-card p{font-size:clamp(14px,2.5vw,17px);line-height:1.8;color:var(--parchment2);max-width:540px;margin:0 auto 16px;}
+.badge-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:12px 0;}
+.badge{background:rgba(201,146,42,.12);border:1px solid rgba(201,146,42,.3);border-radius:4px;padding:5px 12px;font-size:12px;color:var(--gold-pale);font-family:'Cinzel',serif;letter-spacing:.05em;}
+/* NAME + DIFF */
+.name-section,.diff-section{margin:16px 0;}
+.name-section label,.diff-section label{display:block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;color:var(--gold);margin-bottom:7px;text-transform:uppercase;}
+.name-section input{width:100%;max-width:300px;background:rgba(0,0,0,.4);border:1px solid rgba(201,146,42,.4);border-radius:4px;color:var(--parchment);font-family:'EB Garamond',serif;font-size:16px;padding:9px 13px;outline:none;text-align:center;transition:border-color .2s,box-shadow .2s;}
 .name-section input::placeholder{color:rgba(245,217,138,.35);}
 .name-section input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,146,42,.15);}
-.diff-section{margin:20px 0;}
-.diff-section label{display:block;font-family:'Cinzel',serif;font-size:13px;letter-spacing:.1em;color:var(--gold);margin-bottom:10px;text-transform:uppercase;}
-.diff-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;}
-.diff-btn{background:rgba(0,0,0,.3);border:1px solid rgba(201,146,42,.3);border-radius:4px;color:var(--parchment2);
-  font-family:'Cinzel',serif;font-size:12px;letter-spacing:.08em;padding:8px 20px;cursor:pointer;
-  transition:all .2s;text-transform:uppercase;}
-.diff-btn:hover,.diff-btn.sel{background:rgba(201,146,42,.2);border-color:var(--gold);color:var(--gold-pale);box-shadow:0 0 12px rgba(201,146,42,.2);}
-.btn-primary{display:inline-flex;align-items:center;gap:8px;
-  background:linear-gradient(135deg,#8B5E0A 0%,#C9922A 40%,#E8B84B 60%,#C9922A 100%);
-  color:#0D0A06;font-family:'Cinzel Decorative',cursive;font-size:clamp(13px,2.5vw,16px);font-weight:700;
-  padding:clamp(12px,3vw,16px) clamp(24px,5vw,40px);border:none;border-radius:4px;cursor:pointer;
-  box-shadow:0 4px 20px rgba(201,146,42,.4),inset 0 1px 0 rgba(255,255,255,.2);transition:all .2s;
-  letter-spacing:.06em;text-transform:uppercase;}
+.diff-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}
+.diff-btn{background:rgba(0,0,0,.3);border:1px solid rgba(201,146,42,.3);border-radius:4px;color:var(--parchment2);font-family:'Cinzel',serif;font-size:11px;letter-spacing:.07em;padding:6px 14px;cursor:pointer;transition:all .2s;text-transform:uppercase;}
+.diff-btn:hover,.diff-btn.sel{background:rgba(201,146,42,.2);border-color:var(--gold);color:var(--gold-pale);}
+/* SERIES INFO */
+.series-info{background:rgba(201,146,42,.08);border:1px solid rgba(201,146,42,.25);border-radius:6px;padding:10px 16px;margin:14px auto;max-width:420px;font-family:'Cinzel',serif;font-size:12px;color:var(--gold-pale);letter-spacing:.04em;}
+.series-info span{color:var(--gold-light);font-weight:700;}
+/* BUTTONS */
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#8B5E0A,#C9922A 40%,#E8B84B 60%,#C9922A);color:#0D0A06;font-family:'Cinzel Decorative',cursive;font-size:clamp(12px,2.5vw,15px);font-weight:700;padding:clamp(11px,3vw,15px) clamp(20px,5vw,36px);border:none;border-radius:4px;cursor:pointer;box-shadow:0 4px 20px rgba(201,146,42,.4),inset 0 1px 0 rgba(255,255,255,.2);transition:all .2s;letter-spacing:.06em;text-transform:uppercase;}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(201,146,42,.6);}
-.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;
-  border:1px solid rgba(201,146,42,.5);color:var(--gold-pale);font-family:'Cinzel',serif;
-  font-size:clamp(12px,2vw,14px);letter-spacing:.08em;text-transform:uppercase;
-  padding:10px 24px;border-radius:4px;cursor:pointer;transition:all .2s;}
+.btn-secondary{display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid rgba(201,146,42,.5);color:var(--gold-pale);font-family:'Cinzel',serif;font-size:clamp(11px,2vw,13px);letter-spacing:.08em;text-transform:uppercase;padding:9px 20px;border-radius:4px;cursor:pointer;transition:all .2s;}
 .btn-secondary:hover{background:rgba(201,146,42,.15);border-color:var(--gold);}
-.progress-bar-wrap{background:rgba(0,0,0,.4);border:1px solid rgba(201,146,42,.2);border-radius:20px;height:8px;margin:0 0 8px;overflow:hidden;}
-.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold) 0%,var(--gold-light) 100%);border-radius:20px;transition:width .5s ease;box-shadow:0 0 8px rgba(232,184,75,.6);}
-.progress-label{display:flex;justify-content:space-between;font-family:'Cinzel',serif;font-size:12px;color:rgba(245,217,138,.6);letter-spacing:.06em;margin-bottom:16px;}
-.score-bar{display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.3);border:1px solid rgba(201,146,42,.2);border-radius:4px;padding:10px 16px;margin-bottom:16px;}
+/* PROGRESS */
+.progress-bar-wrap{background:rgba(0,0,0,.4);border:1px solid rgba(201,146,42,.2);border-radius:20px;height:7px;margin:0 0 6px;overflow:hidden;}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:20px;transition:width .5s ease;box-shadow:0 0 8px rgba(232,184,75,.6);}
+.progress-label{display:flex;justify-content:space-between;font-family:'Cinzel',serif;font-size:11px;color:rgba(245,217,138,.6);letter-spacing:.06em;margin-bottom:12px;}
+/* SCORE */
+.score-bar{display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.3);border:1px solid rgba(201,146,42,.2);border-radius:4px;padding:8px 14px;margin-bottom:12px;}
 .score-item{text-align:center;}
-.score-item .val{font-family:'Cinzel Decorative',cursive;font-size:clamp(16px,4vw,24px);color:var(--gold-light);line-height:1;}
-.score-item .lbl{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,217,138,.5);margin-top:3px;}
-.score-divider{width:1px;height:36px;background:rgba(201,146,42,.2);}
-.grade-display{background:rgba(0,0,0,.3);border:1px solid rgba(201,146,42,.25);border-radius:6px;
-  padding:10px 16px;display:flex;align-items:center;gap:10px;margin-bottom:12px;}
-.grade-icon{font-size:22px;}
+.score-item .val{font-family:'Cinzel Decorative',cursive;font-size:clamp(15px,4vw,22px);color:var(--gold-light);line-height:1;}
+.score-item .lbl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,217,138,.5);margin-top:2px;}
+.score-divider{width:1px;height:30px;background:rgba(201,146,42,.2);}
+/* GRADE */
+.grade-display{background:rgba(0,0,0,.3);border:1px solid rgba(201,146,42,.25);border-radius:6px;padding:8px 13px;display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+.grade-icon{font-size:20px;}
 .grade-info{flex:1;}
-.grade-name{font-family:'Cinzel',serif;font-size:13px;color:var(--gold-pale);letter-spacing:.06em;}
-.grade-desc{font-size:12px;color:rgba(245,217,138,.5);margin-top:2px;}
-.grade-pts{font-family:'Cinzel Decorative',cursive;font-size:18px;color:var(--gold-light);}
-.combo-bar{height:4px;border-radius:2px;background:rgba(201,146,42,.15);margin-bottom:4px;overflow:hidden;}
+.grade-name{font-family:'Cinzel',serif;font-size:12px;color:var(--gold-pale);letter-spacing:.06em;}
+.grade-desc{font-size:11px;color:rgba(245,217,138,.5);margin-top:1px;}
+.grade-pts{font-family:'Cinzel Decorative',cursive;font-size:15px;color:var(--gold-light);}
+/* COMBO */
+.combo-bar{height:3px;border-radius:2px;background:rgba(201,146,42,.15);margin-bottom:3px;overflow:hidden;}
 .combo-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:width .3s ease;}
-.combo-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.08em;color:rgba(245,217,138,.5);text-align:right;margin-bottom:16px;}
-.q-card{background:linear-gradient(145deg,rgba(26,18,8,.98) 0%,rgba(37,26,10,.95) 100%);
-  border:1px solid rgba(201,146,42,.3);border-radius:8px;padding:clamp(20px,4vw,36px);
-  box-shadow:0 4px 30px rgba(0,0,0,.5),inset 0 1px 0 rgba(201,146,42,.1);margin-bottom:20px;}
-.q-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
-.q-type-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(201,146,42,.12);
-  border:1px solid rgba(201,146,42,.25);border-radius:3px;padding:4px 10px;
-  font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);}
-.q-difficulty{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:3px;
-  font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;}
-.q-difficulty.facile{background:var(--easy-bg);border:1px solid var(--easy-border);color:var(--easy-color);}
-.q-difficulty.moyen{background:var(--medium-bg);border:1px solid var(--medium-border);color:var(--medium-color);}
-.q-difficulty.dur{background:var(--hard-bg);border:1px solid var(--hard-border);color:var(--hard-color);}
-.q-difficulty.extreme{background:var(--extreme-bg);border:1px solid var(--extreme-border);color:var(--extreme-color);}
-.q-text{font-family:'EB Garamond',serif;font-size:clamp(17px,3vw,22px);line-height:1.65;color:var(--parchment);margin-bottom:20px;font-style:italic;}
-.q-media{margin-bottom:20px;}
-.q-media img{width:100%;max-height:300px;object-fit:cover;border-radius:6px;border:1px solid rgba(201,146,42,.3);}
-.audio-player{background:rgba(0,0,0,.4);border:1px solid rgba(201,146,42,.3);border-radius:8px;padding:16px 20px;display:flex;align-items:center;gap:14px;}
-.audio-icon{font-size:28px;filter:drop-shadow(0 0 8px rgba(201,146,42,.5));}
+.combo-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.08em;color:rgba(245,217,138,.5);text-align:right;margin-bottom:12px;}
+/* TIMER */
+.timer-wrap{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.timer-bar-bg{flex:1;height:13px;background:rgba(0,0,0,.5);border:1px solid rgba(201,146,42,.2);border-radius:20px;overflow:hidden;}
+.timer-bar-fill{height:100%;border-radius:20px;transition:width 1s linear,background .4s;background:linear-gradient(90deg,#43a047,#66bb6a);}
+.timer-bar-fill.warn{background:linear-gradient(90deg,#fb8c00,#ffa726);}
+.timer-bar-fill.danger{background:linear-gradient(90deg,#e53935,#ef5350);}
+.timer-num{font-family:'Cinzel Decorative',cursive;font-size:26px;min-width:40px;text-align:center;color:var(--gold-light);transition:color .3s;line-height:1;}
+.timer-num.warn{color:#ffa726;}
+.timer-num.danger{color:#ff5252;animation:tpulse .35s ease-in-out infinite alternate;}
+@keyframes tpulse{from{transform:scale(1)}to{transform:scale(1.25)}}
+/* Q CARD */
+.q-card{background:linear-gradient(145deg,rgba(26,18,8,.98),rgba(37,26,10,.95));border:1px solid rgba(201,146,42,.3);border-radius:8px;padding:clamp(18px,4vw,32px);box-shadow:0 4px 30px rgba(0,0,0,.5),inset 0 1px 0 rgba(201,146,42,.1);margin-bottom:14px;position:relative;}
+.q-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:11px;}
+.q-type-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(201,146,42,.12);border:1px solid rgba(201,146,42,.25);border-radius:3px;padding:3px 9px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);}
+.q-difficulty{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:3px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;}
+.q-difficulty.facile{background:rgba(46,125,50,.18);border:1px solid rgba(76,175,80,.4);color:#a5d6a7;}
+.q-difficulty.moyen{background:rgba(230,145,0,.15);border:1px solid rgba(255,167,38,.4);color:#ffcc80;}
+.q-difficulty.dur{background:rgba(139,26,26,.2);border:1px solid rgba(198,57,57,.4);color:#ef9a9a;}
+.q-difficulty.extreme{background:rgba(74,0,130,.25);border:1px solid rgba(156,39,176,.5);color:#ce93d8;}
+.q-text{font-family:'EB Garamond',serif;font-size:clamp(16px,3vw,21px);line-height:1.65;color:var(--parchment);margin-bottom:16px;font-style:italic;}
+/* MEDIA */
+.q-media{margin-bottom:16px;}
+.q-media img{width:100%;max-height:280px;object-fit:cover;border-radius:6px;border:1px solid rgba(201,146,42,.3);}
+.audio-player{background:rgba(0,0,0,.4);border:1px solid rgba(201,146,42,.3);border-radius:8px;padding:13px 16px;display:flex;align-items:center;gap:12px;}
+.audio-icon{font-size:26px;filter:drop-shadow(0 0 8px rgba(201,146,42,.5));}
 .audio-info{flex:1;}
-.audio-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;opacity:.8;}
+.audio-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;opacity:.8;}
 .audio-info audio{width:100%;}
 .video-wrap{position:relative;width:100%;border:1px solid rgba(201,146,42,.3);border-radius:6px;overflow:hidden;}
+.video-wrap.portrait{max-width:300px;margin:0 auto;}
 .video-wrap video{width:100%;display:block;max-height:300px;}
-.placeholder-media{width:100%;height:160px;background:linear-gradient(135deg,rgba(40,25,5,.9),rgba(60,35,8,.9));
-  border:1px solid rgba(201,146,42,.3);border-radius:6px;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:8px;color:rgba(245,217,138,.4);}
-.placeholder-media .ph-icon{font-size:36px;opacity:.5;}
-.placeholder-media .ph-text{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.08em;opacity:.6;text-align:center;padding:0 16px;}
-.answers{display:grid;gap:10px;margin-bottom:16px;}
-.answers.cols-2{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));}
-.ans-btn{background:rgba(0,0,0,.35);border:1px solid rgba(201,146,42,.25);border-radius:6px;
-  padding:clamp(12px,3vw,16px) clamp(14px,3vw,20px);color:var(--parchment);
-  font-family:'EB Garamond',serif;font-size:clamp(15px,2.5vw,18px);line-height:1.5;
-  text-align:left;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:12px;
-  position:relative;overflow:hidden;width:100%;}
+.placeholder-media{width:100%;height:130px;background:linear-gradient(135deg,rgba(40,25,5,.9),rgba(60,35,8,.9));border:1px solid rgba(201,146,42,.3);border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:rgba(245,217,138,.4);}
+.placeholder-media .ph-icon{font-size:30px;opacity:.5;}
+.placeholder-media .ph-text{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.07em;opacity:.6;text-align:center;padding:0 12px;}
+/* PROOF VIDEO */
+.proof-video{margin-top:12px;border:1px solid rgba(201,146,42,.4);border-radius:8px;overflow:hidden;background:rgba(0,0,0,.5);}
+.proof-video-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);padding:7px 13px;border-bottom:1px solid rgba(201,146,42,.2);background:rgba(201,146,42,.08);}
+.proof-video video{width:100%;display:block;}
+.proof-video.portrait{max-width:280px;margin:0 auto;}
+/* ANSWERS */
+.answers{display:grid;gap:8px;margin-bottom:12px;}
+.answers.cols-2{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));}
+.ans-btn{background:rgba(0,0,0,.35);border:1px solid rgba(201,146,42,.25);border-radius:6px;padding:clamp(10px,3vw,14px) clamp(12px,3vw,18px);color:var(--parchment);font-family:'EB Garamond',serif;font-size:clamp(14px,2.5vw,17px);line-height:1.5;text-align:left;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:11px;position:relative;overflow:hidden;width:100%;}
 .ans-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(201,146,42,.08),transparent);opacity:0;transition:opacity .2s;}
 .ans-btn:hover:not(:disabled)::before{opacity:1;}
-.ans-btn:hover:not(:disabled){border-color:var(--gold);box-shadow:0 0 16px rgba(201,146,42,.15);transform:translateX(3px);}
-.ans-letter{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--gold);min-width:22px;padding-top:2px;}
+.ans-btn:hover:not(:disabled){border-color:var(--gold);box-shadow:0 0 14px rgba(201,146,42,.15);transform:translateX(3px);}
+.ans-letter{font-family:'Cinzel',serif;font-size:12px;font-weight:700;color:var(--gold);min-width:20px;padding-top:2px;}
 .ans-btn.correct{background:rgba(46,125,50,.25)!important;border-color:#4caf50!important;color:#a5d6a7!important;}
 .ans-btn.correct .ans-letter{color:#81c784!important;}
 .ans-btn.wrong{background:rgba(139,26,26,.25)!important;border-color:#e53935!important;color:#ef9a9a!important;}
 .ans-btn.wrong .ans-letter{color:#ef9a9a!important;}
 .ans-btn.revealed{background:rgba(46,125,50,.1)!important;border-color:rgba(76,175,80,.3)!important;}
 .ans-btn:disabled{cursor:default;transform:none!important;}
-.feedback{border-radius:6px;padding:14px 18px;margin:12px 0;font-size:clamp(14px,2vw,16px);line-height:1.6;display:none;animation:fadeIn .3s ease;}
+/* FEEDBACK */
+.feedback{border-radius:6px;padding:12px 15px;margin:9px 0;font-size:clamp(13px,2vw,15px);line-height:1.6;display:none;animation:fadeIn .3s ease;}
 .feedback.correct{background:rgba(46,125,50,.2);border:1px solid rgba(76,175,80,.4);color:#a5d6a7;}
 .feedback.wrong{background:rgba(139,26,26,.2);border:1px solid rgba(198,57,57,.4);color:#ef9a9a;}
 .feedback.show{display:block;}
-.feedback strong{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.08em;text-transform:uppercase;}
-.streak-toast{position:fixed;top:20px;right:20px;z-index:999;
-  background:linear-gradient(135deg,rgba(201,146,42,.95),rgba(232,184,75,.9));
-  color:#0D0A06;font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:.08em;
-  padding:12px 20px;border-radius:6px;box-shadow:0 4px 20px rgba(201,146,42,.5);
-  animation:toastIn .4s ease,toastOut .4s ease 1.8s forwards;pointer-events:none;}
+.feedback strong{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;}
+/* TIMEOUT */
+.timeout-overlay{position:absolute;inset:0;background:rgba(139,26,26,.12);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:17px;color:#ef9a9a;letter-spacing:.08em;animation:fadeIn .3s ease;pointer-events:none;z-index:5;}
+/* TOAST */
+.streak-toast{position:fixed;top:18px;right:18px;z-index:999;background:linear-gradient(135deg,rgba(201,146,42,.95),rgba(232,184,75,.9));color:#0D0A06;font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:.08em;padding:10px 17px;border-radius:6px;box-shadow:0 4px 20px rgba(201,146,42,.5);animation:toastIn .4s ease,toastOut .4s ease 1.8s forwards;pointer-events:none;}
 @keyframes toastIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
 @keyframes toastOut{from{opacity:1}to{opacity:0;transform:translateX(40px)}}
-.nav-row{display:flex;justify-content:center;gap:12px;margin-top:16px;flex-wrap:wrap;}
-.result-card{background:linear-gradient(135deg,rgba(26,18,8,.98),rgba(37,26,10,.95));
-  border:1px solid rgba(201,146,42,.4);border-radius:8px;padding:clamp(24px,5vw,48px);margin-top:32px;text-align:center;
-  box-shadow:0 8px 40px rgba(0,0,0,.6);}
-.result-trophy{font-size:72px;margin-bottom:16px;filter:drop-shadow(0 0 24px rgba(201,146,42,.8));animation:pulse 2s ease-in-out infinite;}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-.result-grade{font-family:'Cinzel Decorative',cursive;font-size:clamp(22px,5vw,38px);
-  background:linear-gradient(135deg,#c9922a,#f5d98a,#e8b84b);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;}
-.result-score{font-family:'Cinzel',serif;font-size:clamp(14px,3vw,18px);color:var(--gold);margin-bottom:24px;letter-spacing:.06em;}
-.result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0;}
-.stat-box{background:rgba(0,0,0,.3);border:1px solid rgba(201,146,42,.2);border-radius:6px;padding:16px 8px;text-align:center;}
-.stat-val{font-family:'Cinzel Decorative',cursive;font-size:clamp(20px,4vw,30px);color:var(--gold-light);}
-.stat-lbl{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,217,138,.5);margin-top:4px;}
-.recap-list{text-align:left;margin:24px 0;}
-.recap-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(201,146,42,.1);font-size:14px;}
+.nav-row{display:flex;justify-content:center;gap:12px;margin-top:13px;flex-wrap:wrap;}
+/* RESULTS */
+.result-trophy{font-size:66px;margin-bottom:12px;filter:drop-shadow(0 0 24px rgba(201,146,42,.8));animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.result-grade{font-family:'Cinzel Decorative',cursive;font-size:clamp(20px,5vw,36px);background:linear-gradient(135deg,#c9922a,#f5d98a,#e8b84b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:7px;}
+.result-score{font-family:'Cinzel',serif;font-size:clamp(13px,3vw,17px);color:var(--gold);margin-bottom:16px;letter-spacing:.06em;}
+.result-message{font-size:clamp(14px,2.5vw,16px);line-height:1.8;color:var(--parchment2);margin:12px 0 18px;font-style:italic;}
+.result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0;}
+.stat-box{background:rgba(0,0,0,.3);border:1px solid rgba(201,146,42,.2);border-radius:6px;padding:13px 6px;text-align:center;}
+.stat-val{font-family:'Cinzel Decorative',cursive;font-size:clamp(17px,4vw,26px);color:var(--gold-light);}
+.stat-lbl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,217,138,.5);margin-top:3px;}
+.recap-list{text-align:left;margin:18px 0;}
+.recap-header{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;opacity:.7;}
+.recap-item{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(201,146,42,.1);font-size:13px;}
 .recap-item:last-child{border-bottom:none;}
-.recap-icon{font-size:16px;min-width:20px;text-align:center;}
+.recap-icon{font-size:15px;min-width:18px;text-align:center;}
 .recap-q{flex:1;color:var(--parchment2);}
-.recap-diff{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.07em;padding:2px 7px;border-radius:3px;white-space:nowrap;}
-.recap-pts{font-family:'Cinzel',serif;font-size:12px;color:var(--gold-light);min-width:55px;text-align:right;}
+.recap-diff{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.07em;padding:2px 6px;border-radius:3px;white-space:nowrap;}
+.recap-pts{font-family:'Cinzel',serif;font-size:11px;color:var(--gold-light);min-width:52px;text-align:right;}
 </style>
 </head>
 <body>
 <div class="bg-layer"></div>
 <div class="particles" id="particles"></div>
-
 <div class="wrap">
 
   <header class="site-header">
@@ -191,27 +172,24 @@ body{font-family:'EB Garamond',serif;background:var(--dark);color:var(--parchmen
   <div class="screen active" id="screen-welcome">
     <div class="welcome-card">
       <h2>Bienvenue, Chevalier !</h2>
-      <p>Prouvez votre connaissance du plus grand parc de spectacles vivants au monde. Des questions faciles aux défis extrêmes vous attendent !</p>
+      <p>Chaque série tire <strong>15 questions aléatoires</strong> parmi toute la banque — vous ne tomberez jamais deux fois sur les mêmes !</p>
       <div class="badge-row">
-        <span class="badge">🟢 Facile</span>
-        <span class="badge">🟡 Moyen</span>
-        <span class="badge">🔴 Dur</span>
-        <span class="badge">💀 Extrême</span>
+        <span class="badge">🟢 Facile</span><span class="badge">🟡 Moyen</span><span class="badge">🔴 Dur</span><span class="badge">💀 Extrême</span>
       </div>
       <div class="badge-row">
-        <span class="badge">🖼️ Images</span>
-        <span class="badge">🎵 Audio</span>
-        <span class="badge">🎬 Vidéo</span>
-        <span class="badge">📝 Culture</span>
+        <span class="badge">🖼️ Images</span><span class="badge">🎵 Audio</span><span class="badge">🎬 Vidéo</span><span class="badge">⏱️ 30 sec/question</span>
+      </div>
+      <div class="series-info">
+        Banque : <span id="totalQCount">?</span> questions &nbsp;·&nbsp; Série : <span>15 questions</span> tirées au sort &nbsp;·&nbsp; Restantes : <span id="unseenCount">?</span>
       </div>
       <div class="name-section">
         <label for="playerName">Votre nom, Chevalier</label>
         <input type="text" id="playerName" placeholder="Entrez votre nom..." maxlength="30">
       </div>
       <div class="diff-section">
-        <label>Filtrer les questions (optionnel)</label>
+        <label>Filtrer par difficulté (optionnel)</label>
         <div class="diff-row">
-          <button class="diff-btn sel" data-diff="all" onclick="selectDiff(this)">Tout</button>
+          <button class="diff-btn sel" data-diff="all" onclick="selectDiff(this)">⚔️ Tout</button>
           <button class="diff-btn" data-diff="facile" onclick="selectDiff(this)">🟢 Facile</button>
           <button class="diff-btn" data-diff="moyen" onclick="selectDiff(this)">🟡 Moyen</button>
           <button class="diff-btn" data-diff="dur" onclick="selectDiff(this)">🔴 Dur</button>
@@ -219,18 +197,15 @@ body{font-family:'EB Garamond',serif;background:var(--dark);color:var(--parchmen
         </div>
       </div>
       <br>
-      <button class="btn-primary" onclick="startQuiz()">⚔️ Commencer le défi</button>
+      <button class="btn-primary" onclick="startQuiz()">⚔️ Lancer une série</button>
     </div>
   </div>
 
   <!-- QUIZ -->
   <div class="screen" id="screen-quiz">
-    <div style="margin-top:24px;">
+    <div style="margin-top:22px;">
       <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill"></div></div>
-      <div class="progress-label">
-        <span id="progressText">Question 1 / ?</span>
-        <span id="progressPct">0%</span>
-      </div>
+      <div class="progress-label"><span id="progressText">Question 1 / 15</span><span id="progressPct">0%</span></div>
     </div>
     <div class="score-bar">
       <div class="score-item"><div class="val" id="scoreDisplay">0</div><div class="lbl">Points</div></div>
@@ -249,6 +224,10 @@ body{font-family:'EB Garamond',serif;background:var(--dark);color:var(--parchmen
     </div>
     <div class="combo-bar"><div class="combo-fill" id="comboFill" style="width:0%"></div></div>
     <div class="combo-label" id="comboLabel">Enchaînez les bonnes réponses pour un bonus !</div>
+    <div class="timer-wrap">
+      <div class="timer-bar-bg"><div class="timer-bar-fill" id="timerFill" style="width:100%"></div></div>
+      <div class="timer-num" id="timerNum">30</div>
+    </div>
     <div class="q-card" id="qCard">
       <div class="q-meta">
         <div class="q-type-badge" id="qTypeBadge">📝 Culture</div>
@@ -258,6 +237,7 @@ body{font-family:'EB Garamond',serif;background:var(--dark);color:var(--parchmen
       <div class="q-media" id="qMedia" style="display:none"></div>
       <div class="answers cols-2" id="answersGrid"></div>
       <div class="feedback" id="feedback"></div>
+      <div id="proofVideoWrap" style="display:none"></div>
     </div>
     <div class="nav-row">
       <button class="btn-primary" id="btnNext" onclick="nextQuestion()" style="display:none">Question suivante ⚔️</button>
@@ -269,272 +249,213 @@ body{font-family:'EB Garamond',serif;background:var(--dark);color:var(--parchmen
     <div class="result-card">
       <div class="result-trophy" id="resTrophy">🏆</div>
       <div class="result-grade" id="resGrade">Champion</div>
-      <div class="result-score" id="resScore">Score final : 0 points</div>
+      <div class="result-score" id="resScore">0 points</div>
+      <div class="result-message" id="resMessage"></div>
       <div class="result-stats">
         <div class="stat-box"><div class="stat-val" id="resCorrect">0</div><div class="stat-lbl">Bonnes réponses</div></div>
-        <div class="stat-box"><div class="stat-val" id="resTotal">0</div><div class="stat-lbl">Questions</div></div>
         <div class="stat-box"><div class="stat-val" id="resPct">0%</div><div class="stat-lbl">Réussite</div></div>
+        <div class="stat-box"><div class="stat-val" id="resBest">0🔥</div><div class="stat-lbl">Meilleure série</div></div>
       </div>
       <div class="recap-list" id="recapList"></div>
       <br>
-      <button class="btn-primary" onclick="restartQuiz()">🔄 Rejouer</button>
+      <button class="btn-primary" onclick="startQuiz()">🔄 Nouvelle série</button>
+      &nbsp;
+      <button class="btn-secondary" onclick="goHome()">🏠 Accueil</button>
     </div>
   </div>
 
 </div>
-
 <script>
-/* ══════════════════════════════════════════
-   TOUTES LES QUESTIONS
-══════════════════════════════════════════ */
+/* ══════════════════ BANQUE DE QUESTIONS ══════════════════ */
 const ALL_QUESTIONS = [
-  /* ── Questions avec médias (données par l'utilisateur) ── */
-  {
-    text:"Dans quel spectacle peut-on voir cette scène ?",
-    type:"image", media:"charette.png",
-    answers:["Viking","Les noces de feu","Les mousquetaires de Richelieu","Le dernier panache"],
-    correct:3, difficulty:"dur", points:200
-  },
-  {
-    text:"De quel spectacle provient cette musique ?",
-    type:"audio", media:"tableronde.mp3",
-    answers:["Les mousquetaires de Richelieu","Les chevaliers de la table ronde","Le bal des oiseaux fantôme","Les sapeurs pompiers"],
-    correct:1, difficulty:"moyen", points:150
-  },
-  {
-    text:"Dans quel spectacle peut-on voir le personnage d'Aliénor ?",
-    type:"texte", media:null,
-    answers:["Les vikings","Le mime et l'étoile","Le bal des oiseaux fantôme","Le secret de la lance"],
-    correct:2, difficulty:"moyen", points:150
-  },
-  {
-    text:"Combien y a-t-il d'oiseaux lors du spectacle Le bal des oiseaux fantôme ?",
-    type:"texte", media:null,
-    answers:["200","521","150","330"],
-    correct:3, difficulty:"extreme", points:300
-  },
-  {
-    text:"Quelle est la particularité du spectacle « Le Secret de la Lance » ?",
-    type:"texte", media:null,
-    answers:["La muraille tombe","Le sol commence à s'élever","La scène prend feu","Les tribunes tournent"],
-    correct:0, difficulty:"facile", points:100
-  },
-  {
-    text:"Quelle est la devise du Puy du Fou ?",
-    type:"texte", media:null,
-    answers:["Le respect est notre force","Le secret règnera","C'est à jamais","L'irréel devient réel"],
-    correct:2, difficulty:"facile", points:100
-  },
-  {
-    text:"De quel spectacle provient cette musique ?",
-    type:"audio", media:"mime.mp3",
-    answers:["Le mime et l'étoile","Le dernier panache","Le café madelon","Les vikings"],
-    correct:0, difficulty:"facile", points:100
-  },
-  {
-    text:"De quel spectacle provient cette photo ?",
-    type:"image", media:"viking.png",
-    answers:["Le dernier panache","Les vikings","Le secret de la lance","Aucun spectacle"],
-    correct:1, difficulty:"moyen", points:150
-  },
-  {
-    text:"Dans quel spectacle peut-on voir un carrosse tiré par des cygnes ?",
-    type:"texte", media:null,
-    answers:["Les grandes eaux","Les mousquetaires de Richelieu","Les vikings","Les noces de feu"],
-    correct:3, difficulty:"facile", points:100
-  },
-  {
-    text:"De quel spectacle provient cette vidéo ?",
-    type:"video", media:"epee.mp4",
-    answers:["Les chevaliers de la table ronde","L'épée du roi Arthur","Le dernier panache","Les vikings"],
-    correct:1, difficulty:"facile", points:100
-  },
-  {
-    text:"De quel spectacle provient cet extrait audio ?",
-    type:"audio", media:"panache.mp3",
-    answers:["Le dernier panache","Les vikings","Les sapeurs pompiers","Les automates musiciens"],
-    correct:0, difficulty:"facile", points:100
-  },
+  // ── Médias utilisateur ──
+  {text:"Dans quel spectacle peut-on voir cette scène ?",type:"image",media:"charette.png",answers:["Viking","Les noces de feu","Les mousquetaires de Richelieu","Le dernier panache"],correct:3,difficulty:"dur",points:150},
+  {text:"De quel spectacle provient cette musique ?",type:"audio",media:"tableronde.mp3",answers:["Les mousquetaires de Richelieu","Les chevaliers de la table ronde","Le bal des oiseaux fantôme","Les sapeurs pompiers"],correct:1,difficulty:"moyen",points:100},
+  {text:"Dans quel spectacle peut-on voir le personnage d'Aliénor ?",type:"texte",media:null,answers:["Les vikings","Le mime et l'étoile","Le bal des oiseaux fantôme","Le secret de la lance"],correct:2,difficulty:"moyen",points:100},
+  {text:"Combien y a-t-il d'oiseaux lors du spectacle Le bal des oiseaux fantôme ?",type:"texte",media:null,answers:["200","521","150","330"],correct:3,difficulty:"extreme",points:200},
+  {text:"Quelle est la particularité du spectacle « Le Secret de la Lance » ?",type:"texte",media:null,answers:["La muraille tombe","Le sol commence à s'élever","La scène prend feu","Les tribunes tournent"],correct:0,difficulty:"facile",points:60},
+  {text:"Quelle est la devise du Puy du Fou ?",type:"texte",media:null,answers:["Le respect est notre force","Le secret règnera","C'est à jamais","L'irréel devient réel"],correct:2,difficulty:"facile",points:60},
+  {text:"De quel spectacle provient cette musique ?",type:"audio",media:"mime.mp3",answers:["Le mime et l'étoile","Le dernier panache","Le café madelon","Les vikings"],correct:0,difficulty:"facile",points:60},
+  {text:"De quel spectacle provient cette photo ?",type:"image",media:"viking.png",answers:["Le dernier panache","Les vikings","Le secret de la lance","Aucun spectacle"],correct:1,difficulty:"moyen",points:100},
+  {text:"Dans quel spectacle peut-on voir un carrosse tiré par des cygnes ?",type:"texte",media:null,answers:["Les grandes eaux","Les mousquetaires de Richelieu","Les vikings","Les noces de feu"],correct:3,difficulty:"facile",points:60},
+  {text:"De quel spectacle provient cette vidéo ?",type:"video",media:"epee.mp4",portrait:false,answers:["Les chevaliers de la table ronde","L'épée du roi Arthur","Le dernier panache","Les vikings"],correct:1,difficulty:"facile",points:60},
+  {text:"De quel spectacle provient cet extrait audio ?",type:"audio",media:"panache.mp3",answers:["Le dernier panache","Les vikings","Les sapeurs pompiers","Les automates musiciens"],correct:0,difficulty:"facile",points:60},
+  {text:"Quel spectacle a lieu dans ce bâtiment ?",type:"image",media:"mousque.png",answers:["Le dernier panache","Les mousquetaires de Richelieu","Le mime et l'étoile","Ce bâtiment est un restaurant"],correct:1,difficulty:"moyen",points:100},
+  {text:"Dans quel spectacle peut-on voir ce personnage ?",type:"image",media:"signe.png",answers:["Les noces de feu","L'épée du roi Arthur","Les vikings","Le signe du triomphe"],correct:3,difficulty:"dur",points:150},
+  {text:"Dans quel spectacle peut-on apercevoir une personne se faire attaquer par un rapace ?",type:"texte",media:null,proofVideo:"attaque.mp4",proofPortrait:true,answers:["Les vikings","Le bal des oiseaux fantômes","Le café madelon","Le dernier panache"],correct:0,difficulty:"facile",points:60},
+  {text:"Quel est le nom de cet endroit ?",type:"image",media:"cite.png",answers:["Chasseloup","Bourg Bérard","Font-Rognou","Saint Philbert le Vieil"],correct:2,difficulty:"extreme",points:200},
+  {text:"De quel spectacle provient cette musique ?",type:"audio",media:"viking.mp3",answers:["Les mousquetaires de Richelieu","La cinéscénie","Les chevaliers de la table ronde","Les vikings"],correct:3,difficulty:"moyen",points:100},
+  {text:"De quel spectacle provient cette musique ?",type:"audio",media:"noce.mp3",answers:["Les noces de feu","Les mousquetaires de Richelieu","Le mime et l'étoile","Cette musique ne provient d'aucun spectacle"],correct:0,difficulty:"facile",points:60},
+  {text:"De quel spectacle provient cette musique ?",type:"audio",media:"rien.mp3",answers:["Le bal des oiseaux fantômes","Les vikings","Le dernier panache","Aucun spectacle"],correct:3,difficulty:"dur",points:150,anecdote:"Piège ! Cette musique ne provient d'aucun spectacle du Puy du Fou. 😄"},
+  {text:"De quel pré-show provient ce personnage ?",type:"image",media:"pre.png",answers:["Les chevaliers de la table ronde","Le mime et l'étoile","Le secret de la lance","Les vikings"],correct:0,difficulty:"moyen",points:100},
+  {text:"Dans quel spectacle peut-on voir cette danse ?",type:"video",media:"danse.mp4",portrait:false,answers:["Les vikings","Le secret de la lance","La cinéscénie","Le bal des oiseaux fantôme"],correct:0,difficulty:"facile",points:60},
+  {text:"Dans quel spectacle peut-on entendre cette devise ?",type:"audio",media:"devise.mp3",answers:["Les mousquetaires de Richelieu","Le dernier panache","Les vikings","Les noces de feu"],correct:1,difficulty:"dur",points:150},
+  // ── Culture générale vérifiée ──
+  {text:"En quelle année a eu lieu la première représentation de La Cinéscénie ?",type:"texte",media:null,answers:["1975","1978","1982","1989"],correct:1,difficulty:"dur",points:150,anecdote:"La Cinéscénie a été créée en 1978 par Philippe de Villiers pour faire revivre le château en ruines du Puy du Fou."},
+  {text:"Combien d'hectares mesure la scène de la Cinéscénie ?",type:"texte",media:null,answers:["10 hectares","23 hectares","50 hectares","5 hectares"],correct:1,difficulty:"extreme",points:200,anecdote:"Avec 23 hectares, la Cinéscénie possède la plus grande scène de spectacle nocturne au monde !"},
+  {text:"Combien de bénévoles participent à la Cinéscénie ?",type:"texte",media:null,answers:["1 200","2 400","4 000","6 000"],correct:2,difficulty:"dur",points:150,anecdote:"Plus de 4 000 bénévoles locaux — surnommés les Puyfolais — font vivre chaque été la Cinéscénie."},
+  {text:"Quel spectacle met en scène une course de chars dans un stadium gallo-romain ?",type:"texte",media:null,answers:["Le Secret de la Lance","Les vikings","Le Signe du Triomphe","Le Dernier Panache"],correct:2,difficulty:"facile",points:60},
+  {text:"Combien de places compte le stadium du Signe du Triomphe ?",type:"texte",media:null,answers:["3 000","5 000","7 000","10 000"],correct:2,difficulty:"extreme",points:200,anecdote:"Le stadium gallo-romain du Signe du Triomphe peut accueillir jusqu'à 7 000 spectateurs !"},
+  {text:"Quelle époque est représentée dans Le Mime et l'Étoile ?",type:"texte",media:null,answers:["Le Moyen Âge","La Révolution française","La Belle Époque et les débuts du cinéma","La Seconde Guerre mondiale"],correct:2,difficulty:"moyen",points:100,anecdote:"Le Mime et l'Étoile se déroule au début du XXe siècle, à l'époque du cinéma muet et des arts du cirque."},
+  {text:"Dans quel spectacle les tribunes tournent-elles à 360° autour de la scène ?",type:"texte",media:null,answers:["Le Signe du Triomphe","Le Bal des Oiseaux Fantôme","Le Dernier Panache","Les Mousquetaires de Richelieu"],correct:2,difficulty:"moyen",points:100,anecdote:"Le Théâtre des Géants du Dernier Panache dispose de 2 400 places qui tournent à 360° !"},
+  {text:"Quel héros vendéen est au cœur du spectacle Le Dernier Panache ?",type:"texte",media:null,answers:["Jean Chouan","La Rochejaquelein","François Athanase Charette","Henri de la Roche"],correct:2,difficulty:"moyen",points:100,anecdote:"Le spectacle rend hommage à Charette de La Contrie, officier de marine et héros des guerres de Vendée."},
+  {text:"Quelle est la capacité d'accueil de La Cinéscénie ?",type:"texte",media:null,answers:["7 000 places","10 000 places","13 000 places","20 000 places"],correct:2,difficulty:"dur",points:150,anecdote:"Avec 13 000 places, la Cinéscénie est le plus grand spectacle nocturne au monde !"},
+  {text:"Combien de visiteurs le Puy du Fou a-t-il accueillis en France en 2024 (année record) ?",type:"texte",media:null,answers:["1,8 million","2,6 millions","2,8 millions","3,5 millions"],correct:2,difficulty:"dur",points:150,anecdote:"2024 est une année record avec 2,8 millions de visiteurs en France, soit 200 000 de plus qu'en 2023 !"},
+  {text:"Combien de spectacles le Puy du Fou a-t-il joués dans le monde en 2024 ?",type:"texte",media:null,answers:["4 200","7 500","11 828","15 000"],correct:2,difficulty:"extreme",points:200,anecdote:"11 828 spectacles joués en 2024 en France, Espagne et Pays-Bas — un record mondial !"},
+  {text:"Quel est le nom du village d'époque gallo-romain du Puy du Fou ?",type:"texte",media:null,answers:["Chasseloup","Bourg Bérard","Font-Rognou","Saint Philbert le Vieil"],correct:3,difficulty:"extreme",points:200,anecdote:"Saint Philbert le Vieil est le village de l'an mil. Font-Rognou est la cité médiévale, Chasseloup le village XVIIIe et Bourg Bérard le bourg 1900."},
+  {text:"Dans quel spectacle surgit un drakkar viking parmi les flammes sur un lac ?",type:"texte",media:null,answers:["Le Secret de la Lance","Les Noces de Feu","Les Vikings","Le Signe du Triomphe"],correct:2,difficulty:"facile",points:60,anecdote:"Dans Les Vikings, un vrai drakkar de 20 mètres de long et 10 mètres de haut surgit des flammes sur le lac !"},
+  {text:"Combien d'espèces d'oiseaux la fauconnerie du Puy du Fou élève-t-elle ?",type:"texte",media:null,answers:["12 espèces","40 espèces","73 espèces","150 espèces"],correct:2,difficulty:"extreme",points:200,anecdote:"La fauconnerie élève plus de 500 oiseaux de 73 espèces différentes, dont certaines en voie de disparition."},
+  {text:"Quel spectacle nocturne se déroule sur le lac avec des cascadeurs subaquatiques ?",type:"texte",media:null,answers:["La Cinéscénie","Les Vikings","Les Noces de Feu","Le Bal des Oiseaux Fantôme"],correct:2,difficulty:"facile",points:60,anecdote:"Les Noces de Feu mettent en scène 30 acteurs et cascadeurs subaquatiques autour du lac du parc."},
+  {text:"Quel spectacle a remplacé Les Chevaliers de la Table Ronde en 2025 ?",type:"texte",media:null,answers:["Le Mystère de Merlin","L'Épée du Roi Arthur","La Quête du Graal","Le Retour d'Arthur"],correct:1,difficulty:"moyen",points:100,anecdote:"L'Épée du Roi Arthur a ouvert le 4 avril 2025 avec un budget de 10 millions d'euros !"},
+  {text:"Combien de places a Les Noces de Feu, le plus grand spectacle du Grand Parc ?",type:"texte",media:null,answers:["7 000 places","10 000 places","13 000 places","15 000 places"],correct:1,difficulty:"extreme",points:200,anecdote:"Les Noces de Feu est le plus grand spectacle du Grand Parc avec 10 000 places !"},
+  {text:"Combien de chevaux sont entrainés toute l'année dans les coulisses du Puy du Fou ?",type:"texte",media:null,answers:["50 chevaux","100 chevaux","200 chevaux","400 chevaux"],correct:2,difficulty:"extreme",points:200,anecdote:"Près de 200 chevaux sont entraînés toute l'année. Un cheval nécessite 2 à 4 ans de préparation avant de monter sur scène !"},
+  {text:"Combien de minutes dure Le Bal des Oiseaux Fantôme ?",type:"texte",media:null,answers:["15 min","20 min","33 min","45 min"],correct:2,difficulty:"moyen",points:100,anecdote:"Le Bal des Oiseaux Fantôme dure 33 minutes et se déroule sur les ruines du premier château du Puy du Fou datant du XIe siècle."},
+  {text:"À quelle hauteur les oiseaux lâchés depuis une montgolfière peuvent-ils s'envoler lors du Bal des Oiseaux Fantôme ?",type:"texte",media:null,answers:["50 mètres","100 mètres","200 mètres","500 mètres"],correct:2,difficulty:"extreme",points:200,anecdote:"Des cages accrochées à un ballon à hélium s'ouvrent à distance jusqu'à 200 mètres de hauteur pour libérer les oiseaux !"},
+  {text:"Dans quel département français se situe le Puy du Fou ?",type:"texte",media:null,answers:["Loire-Atlantique","Maine-et-Loire","Vendée","Deux-Sèvres"],correct:2,difficulty:"facile",points:60,anecdote:"Le Puy du Fou est situé sur la commune des Epesses, en Vendée (85)."},
+  {text:"Quel roi franc est évoqué dans le spectacle Le Premier Royaume ?",type:"texte",media:null,answers:["Charlemagne","Dagobert","Clovis","Louis le Pieux"],correct:2,difficulty:"moyen",points:100,anecdote:"Le Premier Royaume raconte le baptême de Clovis et la naissance de la France chrétienne."},
+  {text:"Combien d'acteurs bénévoles participent au spectacle de La Cinéscénie ?",type:"texte",media:null,answers:["800 acteurs","1 200 acteurs","2 400 acteurs","5 000 acteurs"],correct:2,difficulty:"dur",points:150,anecdote:"La Cinéscénie réunit 2 400 acteurs bénévoles, 120 cavaliers, 100 techniciens et 300 personnes pour l'accueil et la sécurité."},
+  {text:"En quelle année le Grand Parc du Puy du Fou a-t-il ouvert ses portes ?",type:"texte",media:null,answers:["1978","1983","1989","1995"],correct:2,difficulty:"dur",points:150,anecdote:"Le Grand Parc a ouvert en 1989, soit 11 ans après la première Cinéscénie créée en 1978."},
+  {text:"Dans quel pays le Puy du Fou a-t-il ouvert un deuxième parc en 2021 ?",type:"texte",media:null,answers:["Italie","Portugal","Espagne","Belgique"],correct:2,difficulty:"facile",points:60,anecdote:"Le Puy du Fou España a inauguré le 27 mars 2021 à Tolède, en Espagne."},
 
-  /* ── Questions culture générale Puy du Fou ── */
-  {
-    text:"En quelle année a eu lieu la première représentation de La Cinéscénie ?",
-    type:"texte", media:null,
-    answers:["1975","1978","1982","1989"],
-    correct:1, difficulty:"dur", points:200,
-    anecdote:"La Cinéscénie a été créée en 1978 par Philippe de Villiers pour faire revivre le château en ruines du Puy du Fou."
-  },
-  {
-    text:"Combien d'hectares mesure la scène de la Cinéscénie ?",
-    type:"texte", media:null,
-    answers:["10 hectares","23 hectares","50 hectares","5 hectares"],
-    correct:1, difficulty:"extreme", points:300,
-    anecdote:"Avec 23 hectares, la Cinéscénie possède la plus grande scène du monde !"
-  },
-  {
-    text:"Combien de bénévoles « Puyfolais » participent à la Cinéscénie ?",
-    type:"texte", media:null,
-    answers:["2 000","4 000","6 000","1 200"],
-    correct:1, difficulty:"dur", points:200,
-    anecdote:"Plus de 4 000 bénévoles locaux font vivre ce spectacle unique chaque été."
-  },
-  {
-    text:"Quel spectacle met en scène une course de chars dans un stadium gallo-romain ?",
-    type:"texte", media:null,
-    answers:["Le Secret de la Lance","Les Vikings","Le Signe du Triomphe","Le Dernier Panache"],
-    correct:2, difficulty:"facile", points:100
-  },
-  {
-    text:"Combien de places dispose le stadium gallo-romain du Signe du Triomphe ?",
-    type:"texte", media:null,
-    answers:["3 000","5 000","7 000","10 000"],
-    correct:2, difficulty:"extreme", points:300,
-    anecdote:"Le stadium gallo-romain peut accueillir jusqu'à 7 000 spectateurs pour le Signe du Triomphe."
-  },
-  {
-    text:"Le Mime et l'Étoile a remporté quel titre prestigieux en 2024 ?",
-    type:"texte", media:null,
-    answers:["Meilleur parc du monde","Meilleur spectacle du monde","Meilleure innovation technologique","Prix du public"],
-    correct:1, difficulty:"moyen", points:150,
-    anecdote:"En mars 2024, la Themed Entertainment Association a décerné au Mime et l'Étoile le titre de « Meilleur spectacle du monde »."
-  },
-  {
-    text:"Quelle époque est représentée dans le spectacle Le Mime et l'Étoile ?",
-    type:"texte", media:null,
-    answers:["Le Moyen Âge","La Révolution française","La Belle Époque et les débuts du cinéma","La Seconde Guerre mondiale"],
-    correct:2, difficulty:"moyen", points:150
-  },
-  {
-    text:"Dans quel spectacle les tribunes tournent-elles à 360° ?",
-    type:"texte", media:null,
-    answers:["Le Signe du Triomphe","Le Bal des Oiseaux Fantôme","Le Dernier Panache","Les Mousquetaires de Richelieu"],
-    correct:2, difficulty:"moyen", points:150,
-    anecdote:"Le Théâtre des Géants du Dernier Panache dispose d'une tribune de 2 400 places qui tourne autour d'une scène à 360°."
-  },
-  {
-    text:"Quel est le thème historique du spectacle Le Dernier Panache ?",
-    type:"texte", media:null,
-    answers:["La Guerre de Cent Ans","Les guerres de Vendée au XVIIIe siècle","L'Antiquité romaine","Les croisades"],
-    correct:1, difficulty:"moyen", points:150
-  },
-  {
-    text:"Combien de costumes sont nécessaires pour le seul spectacle du Dernier Panache ?",
-    type:"texte", media:null,
-    answers:["500","780","1 180","2 000"],
-    correct:2, difficulty:"extreme", points:300,
-    anecdote:"Le Dernier Panache nécessite à lui seul 1 180 costumes différents."
-  },
-  {
-    text:"Quelle est la longueur du rideau de scène du spectacle des Mousquetaires de Richelieu ?",
-    type:"texte", media:null,
-    answers:["30 mètres","50 mètres","70 mètres","90 mètres"],
-    correct:2, difficulty:"extreme", points:300,
-    anecdote:"Avec 70 mètres, le rideau de scène des Mousquetaires de Richelieu est le plus grand rideau de scène au monde !"
-  },
-  {
-    text:"En combien de minutes la scène des Mousquetaires de Richelieu se transforme-t-elle en lac pour le final ?",
-    type:"texte", media:null,
-    answers:["1 minute","3 minutes","10 minutes","30 secondes"],
-    correct:1, difficulty:"extreme", points:300,
-    anecdote:"En seulement 3 minutes, la scène du Grand Carrousel se transforme en lac pour le final aquatique."
-  },
-  {
-    text:"Quelle période historique est représentée dans le spectacle Le Secret de la Lance ?",
-    type:"texte", media:null,
-    answers:["L'Antiquité","Le Moyen Âge et la Guerre de Cent Ans","La Renaissance","La Révolution française"],
-    correct:1, difficulty:"moyen", points:150
-  },
-  {
-    text:"Quel explorateur est au cœur du spectacle Le Mystère de La Pérouse ?",
-    type:"texte", media:null,
-    answers:["Christophe Colomb","Jacques Cartier","La Pérouse","Magellan"],
-    correct:2, difficulty:"facile", points:100
-  },
-  {
-    text:"En quelle année le parc du Puy du Fou a-t-il ouvert (le Grand Parc) ?",
-    type:"texte", media:null,
-    answers:["1978","1983","1989","1995"],
-    correct:2, difficulty:"dur", points:200,
-    anecdote:"Le Grand Parc a ouvert ses portes en 1989, soit 11 ans après la première Cinéscénie."
-  },
-  {
-    text:"Quelle est la dimension de la galère impériale apparaissant dans Le Signe du Triomphe ?",
-    type:"texte", media:null,
-    answers:["20m de long et 8m de haut","40m de long et 15m de haut","60m de long et 20m de haut","30m de long et 10m de haut"],
-    correct:1, difficulty:"extreme", points:300,
-    anecdote:"La galère impériale du Signe du Triomphe mesure 40 mètres de long et 15 mètres de haut — un décor titanesque !"
-  },
-  {
-    text:"Quel roi franc est au cœur du spectacle Le Premier Royaume ?",
-    type:"texte", media:null,
-    answers:["Charlemagne","Dagobert","Clovis","Louis XIV"],
-    correct:2, difficulty:"moyen", points:150
-  },
-  {
-    text:"Combien de costumes différents sont utilisés au total sur l'ensemble du parc du Puy du Fou ?",
-    type:"texte", media:null,
-    answers:["20 000","80 000","150 000","10 000"],
-    correct:1, difficulty:"extreme", points:300,
-    anecdote:"L'habillement de tous les acteurs du parc nécessite au total 80 000 costumes différents."
-  },
-  {
-    text:"À combien de millions de visiteurs s'élevait la fréquentation record du Puy du Fou en 2023 ?",
-    type:"texte", media:null,
-    answers:["1,8 million","2,6 millions","3,5 millions","4 millions"],
-    correct:1, difficulty:"dur", points:200,
-    anecdote:"2023 a été une année record avec 2,6 millions de visiteurs au Puy du Fou."
-  }
+  // ── Questions utilisateur (nouvelles) ──
+  {text:"De quel spectacle provient cette photo ?",type:"image",media:"faux.png",answers:["La cinéscénie","Le dernier panache","Les noces de feu","Aucun spectacle"],correct:3,difficulty:"dur",points:150,anecdote:"Piège ! Cette photo ne provient d'aucun spectacle du Puy du Fou. 😄"},
+  {text:"Dans quel spectacle peut-on entendre : « Si il faut brûler avec eux... Nous brûlerons » ?",type:"texte",media:null,proofVideo:"brule.mp4",proofPortrait:false,answers:["Le dernier panache","Le signe du triomphe","Les vikings","Les noces de feu"],correct:1,difficulty:"extreme",points:200},
+  {text:"Combien y a-t-il de drakkars dans le spectacle Les Vikings ?",type:"texte",media:null,answers:["1","2","3","4"],correct:1,difficulty:"dur",points:150},
+  {text:"Dans quel spectacle peut-on entendre cette phrase ?",type:"audio",media:"tirer.mp3",answers:["Le secret de la lance","Les mousquetaires de Richelieu","Les amoureux de Verdun","Le dernier panache"],correct:3,difficulty:"dur",points:150},
+  {text:"Comment s'appelle le soldat que l'on suit dans le spectacle « Les amoureux de Verdun » ?",type:"texte",media:null,answers:["Jean","Louis","Nicolas","Martin"],correct:1,difficulty:"extreme",points:200},
+  {text:"À quelle période se termine le spectacle « Les amoureux de Verdun » ?",type:"texte",media:null,answers:["Noël","Pâques","Printemps","Été"],correct:0,difficulty:"extreme",points:200},
+  {text:"Que se passe-t-il après cette vidéo ?",type:"video",media:"1.mp4",portrait:true,proofVideo:"2.mp4",proofPortrait:true,answers:["L'homme en noir tombe dans les escaliers","L'homme en noir pousse l'autre","L'homme en noir part en courant","L'homme en noir se fait jeter sur la table"],correct:3,difficulty:"extreme",points:200},
+  {text:"Dans quel village d'époque se trouve-t-on sur cette photo ?",type:"image",media:"village.png",answers:["Font-Rognou","Chasseloup","Le Bourg Bérard","Saint Philbert le Vieil"],correct:2,difficulty:"moyen",points:100,anecdote:"Le Bourg Bérard est le village reconstitué du début du XXe siècle, avec ses commerces et son atmosphère 1900."},
+
+  // ── Questions internet (lot 1) ──
+  {text:"Quel est le budget investi pour créer Le Mime et l'Étoile en 2023 ?",type:"texte",media:null,answers:["5 millions €","10 millions €","20 millions €","50 millions €"],correct:2,difficulty:"extreme",points:200,anecdote:"Avec plus de 20 millions d'euros, Le Mime et l'Étoile est le plus gros budget jamais investi en Europe pour un spectacle vivant !"},
+  {text:"Combien de fois par jour L'Épée du Roi Arthur est-il joué au maximum ?",type:"texte",media:null,answers:["3 fois","5 fois","8 fois","12 fois"],correct:2,difficulty:"dur",points:150,anecdote:"Pour pallier sa capacité limitée à 1 500 places, L'Épée du Roi Arthur est joué jusqu'à 8 fois par jour, soit 900 fois dans la saison !"},
+  {text:"Quel est le poids du décor mobile de L'Épée du Roi Arthur qui se soulève au-dessus de l'eau ?",type:"texte",media:null,answers:["10 tonnes","40 tonnes","100 tonnes","200 tonnes"],correct:1,difficulty:"extreme",points:200,anecdote:"Un immense décor mobile de 40 tonnes se soulève dans le vide au-dessus de l'eau — une prouesse technique unique au monde !"},
+  {text:"En quelle année le spectacle Le Dernier Panache a-t-il été créé ?",type:"texte",media:null,answers:["2012","2014","2016","2018"],correct:2,difficulty:"moyen",points:100,anecdote:"Le Dernier Panache a été inauguré en 2016 et a depuis accueilli plus de 14 millions de visiteurs dans son Théâtre des Géants."},
+  {text:"Combien de visiteurs le Puy du Fou a-t-il accueillis au total (France + Espagne) en 2025 ?",type:"texte",media:null,answers:["2,8 millions","3,5 millions","4,7 millions","6 millions"],correct:2,difficulty:"extreme",points:200,anecdote:"En 2025, les deux parcs (France + Espagne) ont accueilli 4,7 millions de visiteurs, un record historique absolu !"},
+  {text:"Dans quelle ville espagnole se situe le Puy du Fou España ?",type:"texte",media:null,answers:["Madrid","Séville","Tolède","Barcelone"],correct:2,difficulty:"moyen",points:100,anecdote:"Le Puy du Fou España est situé près de Tolède, en Castille-La Manche, et a ouvert le 27 mars 2021."},
+  {text:"Quel événement mondial s'est déroulé au Puy du Fou le 4 juin 2024 ?",type:"texte",media:null,answers:["Le passage de la flamme olympique","Le G7 culturel","La finale de la Coupe du Monde","Le lancement d'une fusée Ariane"],correct:0,difficulty:"moyen",points:100,anecdote:"La flamme olympique des JO de Paris 2024 a traversé le Puy du Fou le 4 juin 2024, parmi 7 sites emblématiques de Vendée."},
+  {text:"Quelle surface fait la scène de l'Épée du Roi Arthur ?",type:"texte",media:null,answers:["500 m²","1 500 m²","3 000 m²","6 000 m²"],correct:2,difficulty:"extreme",points:200,anecdote:"L'Épée du Roi Arthur dispose d'une scène de 3 000 m² pour un spectacle de 22 minutes, avec 1 500 places par séance."},
+  {text:"Comment s'appelle la grande course à pied nocturne organisée chaque année dans le parc du Puy du Fou ?",type:"texte",media:null,answers:["La Nuit des Héros","La Foulée des Géants","Le Grand Galop","La Course des Arènes"],correct:1,difficulty:"moyen",points:100,anecdote:"La Foulée des Géants propose une course de 10 km et un trail de 20 km après la fermeture du parc, dans les décors illuminés !"},
+  {text:"Quel est le nom du grand projet de train Belle Époque imaginé par le Puy du Fou ?",type:"texte",media:null,answers:["Le Train des Légendes","L'Odyssée Ferroviaire","Le Grand Tour","L'Express du Temps"],correct:2,difficulty:"dur",points:150,anecdote:"Le Grand Tour est un voyage-spectacle de 6 jours en train Belle Époque traversant des sites emblématiques de France !"},
+  {text:"Quelle récompense internationale Le Mime et l'Étoile a-t-il obtenu en 2024 ?",type:"texte",media:null,answers:["Oscar du meilleur film","Meilleur spectacle du monde aux THEA Awards","Prix du public européen","Golden Globe du divertissement"],correct:1,difficulty:"dur",points:150,anecdote:"Le Mime et l'Étoile a remporté l'Oscar du Meilleur Spectacle du Monde lors des THEA Awards 2024 à Los Angeles !"},
+  {text:"Quelle est la superficie totale du parc naturel du Puy du Fou ?",type:"texte",media:null,answers:["20 hectares","55 hectares","100 hectares","200 hectares"],correct:1,difficulty:"dur",points:150,anecdote:"Le Puy du Fou s'étend sur plus de 55 hectares de parc naturel avec 130 espèces d'arbres et 5 000 pieds de rosiers !"},
+  {text:"Combien d'hôtels thématiques la Cité Nocturne du Puy du Fou compte-t-elle ?",type:"texte",media:null,answers:["2 hôtels","4 hôtels","6 hôtels","8 hôtels"],correct:2,difficulty:"moyen",points:100,anecdote:"La Cité Nocturne regroupe 6 hôtels : La Villa Gallo-Romaine, Le Camp du Drap d'Or, Les Îles de Clovis, La Citadelle, Le Logis de Lescure et Le Grand Siècle."},
+  {text:"Dans quel pays le Puy du Fou prévoit-il d'ouvrir son 3e parc européen ?",type:"texte",media:null,answers:["Italie","Allemagne","Royaume-Uni","Pays-Bas"],correct:2,difficulty:"dur",points:150,anecdote:"Le 3e parc européen du Puy du Fou ouvrira à Bicester, dans l'Oxfordshire, au Royaume-Uni !"},
+  {text:"Quel grand spectacle itinérant le Puy du Fou prépare-t-il pour 2027 ?",type:"texte",media:null,answers:["Cinéscénie en tournée","Mousquetaire","Le Dernier Panache Tour","Les Vikings à Paris"],correct:1,difficulty:"extreme",points:200,anecdote:"En 2027, le Puy du Fou lancera « Mousquetaire », un spectacle de cape et d'épée de près de 2 heures, dont la tournée débutera à Paris !"},
+
+  // ── 35 nouvelles questions ──
+  {text:"Comment s'appelle le personnage enfant ajouté au Signe du Triomphe en 2025 ?",type:"texte",media:null,answers:["Marcus","Aurélien","Tibère","Maximus"],correct:1,difficulty:"extreme",points:200,anecdote:"En 2025, Aurélien, un enfant de 12 ans interprété par un élève de Puy du Fou Académie, rejoint le Signe du Triomphe !"},
+  {text:"Quel est le nom de l'école interne du Puy du Fou qui forme ses jeunes artistes ?",type:"texte",media:null,answers:["Puy du Fou Académie","École des Arènes","Académie Vendéenne","Académie des Spectacles"],correct:0,difficulty:"dur",points:150,anecdote:"La Puy du Fou Académie est une école arts/études interne qui forme les jeunes talents qui montent sur scène dans les spectacles."},
+  {text:"Comment s'appelle la chasse au trésor mondiale lancée par le Puy du Fou en 2025 ?",type:"texte",media:null,answers:["Graal Quest","Exkalibur","La Lance Dorée","Le Trésor de Charette"],correct:1,difficulty:"moyen",points:100,anecdote:"Exkalibur est une chasse au trésor mondiale avec 12 énigmes. Le prix : une épée forgée en or valant 250 000€ !"},
+  {text:"Combien vaut l'épée en or à remporter lors de la chasse au trésor Exkalibur ?",type:"texte",media:null,answers:["50 000 €","100 000 €","250 000 €","1 million €"],correct:2,difficulty:"extreme",points:200,anecdote:"L'épée Exkalibur, forgée par les meilleurs forgerons et joailliers français, est estimée à 250 000 euros !"},
+  {text:"Quel navigateur est mis à l'honneur dans l'attraction Le Mystère de La Pérouse ?",type:"texte",media:null,answers:["Christophe Colomb","Magellan","Jean-François de La Pérouse","Jacques Cartier"],correct:2,difficulty:"moyen",points:100,anecdote:"Le Mystère de La Pérouse retrace le voyage de l'explorateur Jean-François de La Pérouse à bord de son vaisseau la Boussole."},
+  {text:"En quelle année a ouvert le premier hôtel du Puy du Fou ?",type:"texte",media:null,answers:["2003","2005","2007","2010"],correct:2,difficulty:"dur",points:150,anecdote:"La Villa Gallo-Romaine, premier hôtel de la Cité Nocturne, a ouvert ses portes en 2007."},
+  {text:"Quel roi est incarné dans l'attraction immersive Le Premier Royaume ?",type:"texte",media:null,answers:["Charlemagne","Dagobert","Clovis","Louis XIV"],correct:2,difficulty:"moyen",points:100,anecdote:"Le Premier Royaume raconte le baptême de Clovis et la naissance de la France chrétienne au Ve siècle."},
+  {text:"Quelle bataille est représentée dans Les Amoureux de Verdun ?",type:"texte",media:null,answers:["La Marne","Verdun en 1916","Le Débarquement","La Somme"],correct:1,difficulty:"facile",points:60,anecdote:"Les Amoureux de Verdun plonge le spectateur dans les tranchées de la Première Guerre mondiale à Verdun en 1916."},
+  {text:"Quel personnage historique vendéen apparaît dans la Cinéscénie 2024 ?",type:"texte",media:null,answers:["Napoléon Bonaparte","Le Maréchal de Lattre de Tassigny","De Gaulle","Clemenceau"],correct:1,difficulty:"extreme",points:200,anecdote:"La Cinéscénie 2024 célèbre les 80 ans du Débarquement avec le Maréchal de Lattre, Vendéen illustre qui a signé la capitulation de l'Allemagne en 1945."},
+  {text:"Quel est le thème du spectacle éphémère La Frairie de la Toussaint ?",type:"texte",media:null,answers:["Les guerres de Vendée","Une fête royale de la Renaissance","La Révolution française","Le Moyen Âge"],correct:1,difficulty:"moyen",points:100,anecdote:"La Frairie de la Toussaint est une grande fête royale de la Renaissance avec 150 artistes, un orchestre symphonique et François 1er en invité d'honneur !"},
+  {text:"Combien de représentations le spectacle Raveleijn du parc Efteling (créé par le Puy du Fou) a-t-il jouées avant sa fermeture ?",type:"texte",media:null,answers:["5 000","10 millions de spectateurs / 18 000 représentations","2 000","8 000"],correct:1,difficulty:"extreme",points:200,anecdote:"Le spectacle Raveleijn Show, créé par le Puy du Fou en 2013 pour le parc hollandais Efteling, a réalisé 18 000 représentations et attiré 10 millions de spectateurs !"},
+  {text:"Quel est le nom du personnage principal que suit-on dans L'Épée du Roi Arthur ?",type:"texte",media:null,answers:["Lancelot","Perceval","Tristan","Gauvain"],correct:2,difficulty:"moyen",points:100,anecdote:"Dans L'Épée du Roi Arthur, on suit le jeune Tristan qui doit libérer l'épée Excalibur pour délivrer le roi Arthur de son sortilège."},
+  {text:"Depuis quelle année le Grand Parc du Puy du Fou n'avait-il pas rouvert pour Noël avant 2026 ?",type:"texte",media:null,answers:["2010","2014","2018","2020"],correct:2,difficulty:"extreme",points:200,anecdote:"Le Puy du Fou n'avait plus ouvert pour Noël depuis 2018. La saison de Noël revient en décembre 2026 avec des spectacles inédits !"},
+  {text:"Combien de chevaux de spectacle le Puy du Fou possède-t-il ?",type:"texte",media:null,answers:["80 chevaux","150 chevaux","230 chevaux","400 chevaux"],correct:2,difficulty:"dur",points:150,anecdote:"Le Puy du Fou possède 230 chevaux de spectacle, entraînés pendant 2 à 4 ans avant de monter sur scène."},
+  {text:"Quel est le spectacle du Puy du Fou qui dure le plus longtemps (hors Cinéscénie) ?",type:"texte",media:null,answers:["Le Bal des Oiseaux Fantôme (33 min)","Le Dernier Panache (40 min)","Le Signe du Triomphe (35 min)","Les Noces de Feu (45 min)"],correct:1,difficulty:"extreme",points:200,anecdote:"Le Dernier Panache est le spectacle le plus long du Grand Parc avec environ 40 minutes de spectacle dans son Théâtre des Géants."},
+  {text:"Combien d'animaux vivent dans le parc naturel du Puy du Fou ?",type:"texte",media:null,answers:["500 animaux","1 000 animaux","1 500 animaux","3 000 animaux"],correct:2,difficulty:"dur",points:150,anecdote:"Plus de 1 500 animaux vivent dans les 60 hectares du parc naturel du Puy du Fou."},
+  {text:"Quel est le nom du spectacle qui met en scène des gladiateurs romains au Puy du Fou ?",type:"texte",media:null,answers:["Les Légions de Rome","Le Signe du Triomphe","La Bataille des Arènes","Ave Caesar"],correct:1,difficulty:"facile",points:60,anecdote:"Le Signe du Triomphe met en scène des gladiateurs, des courses de chars et une galère romaine dans un stadium de 7 000 places."},
+  {text:"Combien de places de tribune dispose L'Épée du Roi Arthur ?",type:"texte",media:null,answers:["500 places","1 500 places","2 000 places","4 000 places"],correct:1,difficulty:"dur",points:150,anecdote:"L'Épée du Roi Arthur n'a que 1 500 places — le moins de places de tous les grands spectacles du parc, d'où ses 8 représentations quotidiennes."},
+  {text:"En quelle année Le Mime et l'Étoile a-t-il ouvert ses portes ?",type:"texte",media:null,answers:["2021","2022","2023","2024"],correct:2,difficulty:"facile",points:60,anecdote:"Le Mime et l'Étoile a ouvert le 8 avril 2023 et a immédiatement reçu de nombreuses récompenses internationales."},
+  {text:"Quel roi préside la fête de la Frairie de la Toussaint au Puy du Fou ?",type:"texte",media:null,answers:["Louis XIV","Henri IV","François 1er","Charles IX"],correct:2,difficulty:"dur",points:150,anecdote:"C'est François 1er qui convie les visiteurs à la grande fête royale de la Renaissance lors de la Frairie de la Toussaint."},
+  {text:"Combien d'artistes participent à la Frairie de la Toussaint ?",type:"texte",media:null,answers:["50 artistes","100 artistes","150 artistes","300 artistes"],correct:2,difficulty:"extreme",points:200,anecdote:"La Frairie de la Toussaint mobilise plus de 150 artistes avec un orchestre symphonique dans la cour du château."},
+  {text:"Quel type de combat peut-on voir dans le spectacle Le Secret de la Lance ?",type:"texte",media:null,answers:["Des combats de gladiateurs","Des duels à l'épée","Des cascades de cavaliers voltigeurs","Des batailles navales"],correct:2,difficulty:"facile",points:60,anecdote:"Le Secret de la Lance est célèbre pour ses impressionnantes cascades de cavaliers voltigeurs et ses chevaliers en armure."},
+  {text:"Quelle est la longueur du rideau de scène du Grand Carrousel des Mousquetaires de Richelieu ?",type:"texte",media:null,answers:["30 mètres","50 mètres","80 mètres","120 mètres"],correct:2,difficulty:"extreme",points:200,anecdote:"Le Grand Carrousel dispose d'un rideau de scène de 80 mètres de long et 13 mètres de haut — le plus grand rideau de scène au monde lors de sa construction en 2006 !"},
+  {text:"Qui a fondé le Puy du Fou ?",type:"texte",media:null,answers:["Nicolas de Villiers","Philippe de Villiers","Jean de Villiers","François de Villiers"],correct:1,difficulty:"facile",points:60,anecdote:"Philippe de Villiers a créé La Cinéscénie en 1978 pour faire revivre le château du Puy du Fou. Son fils Nicolas dirige aujourd'hui le parc."},
+  {text:"Qui est aujourd'hui président du Puy du Fou ?",type:"texte",media:null,answers:["Philippe de Villiers","Nicolas de Villiers","Jean-Pierre de Villiers","Marc de Villiers"],correct:1,difficulty:"moyen",points:100,anecdote:"Nicolas de Villiers, fils du fondateur Philippe de Villiers, est président du Puy du Fou depuis plusieurs années."},
+  {text:"Dans quel village d'époque se trouve le spectacle de fauconnerie Le Bal des Oiseaux Fantôme ?",type:"texte",media:null,answers:["Saint Philbert le Vieil","Le Bourg Bérard","Font-Rognou","Chasseloup"],correct:2,difficulty:"dur",points:150,anecdote:"Le Bal des Oiseaux Fantôme se déroule sur les ruines du château médiéval dans le village de Font-Rognou."},
+  {text:"Quel spectacle raconte l'histoire d'amour d'une muse violoniste et d'un pianiste ?",type:"texte",media:null,answers:["Le Mime et l'Étoile","Les Noces de Feu","Le Bal des Oiseaux Fantôme","La Cinéscénie"],correct:1,difficulty:"facile",points:60,anecdote:"Les Noces de Feu raconte l'histoire d'amour de la Muse Violoniste et du Pianiste Virtuose dans une féerie d'eau et de feu sur le lac."},
+  {text:"Quelle est la durée du spectacle Le Mime et l'Étoile ?",type:"texte",media:null,answers:["15 minutes","27 minutes","45 minutes","1 heure"],correct:1,difficulty:"moyen",points:100,anecdote:"Le Mime et l'Étoile dure 27 minutes et se déroule dans une salle de 2 000 places spécialement construite pour ce spectacle."},
+  {text:"Combien de places a la salle du Mime et l'Étoile ?",type:"texte",media:null,answers:["800 places","1 200 places","2 000 places","4 000 places"],correct:2,difficulty:"moyen",points:100,anecdote:"Le Mime et l'Étoile est joué dans une salle intérieure de 2 000 places, jusqu'à 8 fois par jour."},
+  {text:"Quel est le nom du réalisateur fictif que l'on suit dans Le Mime et l'Étoile ?",type:"texte",media:null,answers:["Georges","Félix","Louis","Marcel"],correct:1,difficulty:"extreme",points:200,anecdote:"Dans Le Mime et l'Étoile, on suit le réalisateur Félix, convaincu que seul l'amour sincère du Mime et de l'Étoile pourra rendre couleur et voix à ses personnages."},
+  {text:"En quelle année Les Mousquetaires de Richelieu ont-ils ouvert leurs portes ?",type:"texte",media:null,answers:["2001","2004","2006","2009"],correct:2,difficulty:"dur",points:150,anecdote:"Le Grand Carrousel et le spectacle Les Mousquetaires de Richelieu ont été inaugurés en 2006, avec 6 000 m² de théâtre."},
+  {text:"Quel spectacle du Puy du Fou se déroule dans une tranchée reconstituée de la Première Guerre mondiale ?",type:"texte",media:null,answers:["Le Secret de la Lance","Le Dernier Panache","Les Amoureux de Verdun","Le Premier Royaume"],correct:2,difficulty:"facile",points:60,anecdote:"Les Amoureux de Verdun est une attraction immersive où l'on traverse une vraie tranchée dans l'obscurité et le bruit des bombardements."},
+  {text:"Quel est le nom du premier spectacle jamais joué au Puy du Fou (1978) ?",type:"texte",media:null,answers:["Les Vikings","Le Bal des Oiseaux Fantôme","La Cinéscénie","Le Signe du Triomphe"],correct:2,difficulty:"facile",points:60,anecdote:"La Cinéscénie est le tout premier spectacle du Puy du Fou, créé en 1978. Il est toujours joué aujourd'hui, continuellement amélioré !"},
+  {text:"Quelle période historique le village de Chasseloup représente-t-il ?",type:"texte",media:null,answers:["L'Antiquité","Le Moyen Âge","Le XVIIIe siècle (époque de Charette)","Le début du XXe siècle"],correct:2,difficulty:"extreme",points:200,anecdote:"Chasseloup est le village d'époque du XVIIIe siècle, représentant la période des guerres de Vendée et de Charette."},
+  {text:"Que représente le village Saint Philbert le Vieil au Puy du Fou ?",type:"texte",media:null,answers:["La Gaule romaine","L'an mil (Moyen Âge)","La Renaissance","Le XVIIIe siècle"],correct:1,difficulty:"extreme",points:200,anecdote:"Saint Philbert le Vieil est le village médiéval de l'an mil, avec ses artisans, ses marchands et ses animations du Moyen Âge."},
+  {text:"Combien de saisons (années) le spectacle Les Chevaliers de la Table Ronde a-t-il été joué avant d'être remplacé ?",type:"texte",media:null,answers:["5 ans","8 ans","12 ans","20 ans"],correct:2,difficulty:"dur",points:150,anecdote:"Les Chevaliers de la Table Ronde ont été joués de 2013 à 2024, soit 12 saisons avant d'être remplacés par L'Épée du Roi Arthur en 2025."},
 ];
 
-/* ══════════════════════════════════════════
-   GRADES
-══════════════════════════════════════════ */
-const GRADES = [
-  {min:0,    icon:"🥉", name:"Apprenti",             desc:"Vous découvrez le Puy du Fou..."},
-  {min:150,  icon:"🎭", name:"Spectateur",            desc:"Vous avez déjà assisté à quelques spectacles."},
-  {min:350,  icon:"⚔️", name:"Écuyer",               desc:"Votre connaissance s'affine !"},
-  {min:600,  icon:"🛡️", name:"Chevalier",            desc:"Vous maîtrisez les bases du Puy du Fou."},
-  {min:900,  icon:"🏹", name:"Garde Royal",           desc:"Impressionnant ! Peu atteignent ce niveau."},
-  {min:1200, icon:"👑", name:"Seigneur des Arènes",   desc:"Vous connaissez le parc comme votre poche !"},
-  {min:1600, icon:"🌟", name:"Légende du Puy du Fou", desc:"Vous êtes une véritable légende vivante !"}
+/* ══════════ GRADES ══════════ */
+const GRADES=[
+  {min:0,   icon:"🥉",name:"Apprenti",             desc:"Vous découvrez à peine le Puy du Fou…"},
+  {min:150, icon:"🎭",name:"Spectateur curieux",   desc:"Vous avez déjà assisté à quelques spectacles."},
+  {min:350, icon:"⚔️",name:"Écuyer",              desc:"Votre connaissance s'affine !"},
+  {min:600, icon:"🛡️",name:"Chevalier",           desc:"Vous maîtrisez les bases du Puy du Fou."},
+  {min:900, icon:"🏹",name:"Garde Royal",          desc:"Impressionnant ! Peu atteignent ce niveau."},
+  {min:1200,icon:"👑",name:"Seigneur des Arènes",  desc:"Vous connaissez le parc comme votre poche !"},
+  {min:1600,icon:"🌟",name:"Légende du Puy du Fou",desc:"Vous êtes une véritable légende vivante !"}
 ];
+const MSGS=[
+  {min:0,  msg:"Ne vous découragez pas, chaque visite vous en apprendra davantage !"},
+  {min:30, msg:"Pas mal ! Il reste encore beaucoup à découvrir dans ce parc extraordinaire."},
+  {min:50, msg:"Bien joué ! Vous connaissez déjà quelques secrets du Puy du Fou."},
+  {min:70, msg:"Excellent ! Vous êtes clairement un habitué des spectacles vendéens !"},
+  {min:90, msg:"Parfait ou presque ! Vous êtes une véritable encyclopédie du Puy du Fou !"}
+];
+const DC={facile:{bg:"rgba(46,125,50,.18)",border:"rgba(76,175,80,.4)",color:"#a5d6a7"},moyen:{bg:"rgba(230,145,0,.15)",border:"rgba(255,167,38,.4)",color:"#ffcc80"},dur:{bg:"rgba(139,26,26,.2)",border:"rgba(198,57,57,.4)",color:"#ef9a9a"},extreme:{bg:"rgba(74,0,130,.25)",border:"rgba(156,39,176,.5)",color:"#ce93d8"}};
 
-const DIFF_COLORS = {
-  facile:  {bg:"rgba(46,125,50,.18)",  border:"rgba(76,175,80,.4)",   color:"#a5d6a7"},
-  moyen:   {bg:"rgba(230,145,0,.15)", border:"rgba(255,167,38,.4)",  color:"#ffcc80"},
-  dur:     {bg:"rgba(139,26,26,.2)",  border:"rgba(198,57,57,.4)",   color:"#ef9a9a"},
-  extreme: {bg:"rgba(74,0,130,.25)",  border:"rgba(156,39,176,.5)",  color:"#ce93d8"}
-};
+const SERIES_SIZE=15, TIMER_MAX=30;
+let questions=[],currentIdx=0,score=0,streak=0,bestStreak=0,correctCount=0,answered=false,history=[],playerName="",selectedDiff="all",timerInterval=null,timerLeft=TIMER_MAX;
 
-/* ══════════════════════════════════════════
-   STATE
-══════════════════════════════════════════ */
-let questions=[], currentIdx=0, score=0, streak=0, correctCount=0, answered=false, history=[], playerName="", selectedDiff="all";
+document.getElementById('totalQCount').textContent=ALL_QUESTIONS.length;
+function updateUnseenCount(){
+  const seen=getSeen();
+  const unseen=ALL_QUESTIONS.filter(q=>!seen.includes(q.text)).length;
+  const el=document.getElementById('unseenCount');
+  if(unseen===ALL_QUESTIONS.length) el.textContent=unseen+' (toutes !)';
+  else el.textContent=unseen+' restantes';
+}
+updateUnseenCount();
 
-/* ══════════════════════════════════════════
-   PARTICLES
-══════════════════════════════════════════ */
-(function(){
-  const c=document.getElementById('particles');
-  for(let i=0;i<18;i++){
-    const p=document.createElement('div');p.className='particle';
-    const s=3+Math.random()*6;
-    p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;--drift:${(Math.random()-.5)*120}px;animation-duration:${8+Math.random()*14}s;animation-delay:${Math.random()*10}s;`;
-    c.appendChild(p);
-  }
-})();
+/* PARTICLES */
+(function(){const c=document.getElementById('particles');for(let i=0;i<18;i++){const p=document.createElement('div');p.className='particle';const s=3+Math.random()*6;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;--drift:${(Math.random()-.5)*120}px;animation-duration:${8+Math.random()*14}s;animation-delay:${Math.random()*10}s;`;c.appendChild(p);}})();
 
-/* ══════════════════════════════════════════
-   HELPERS
-══════════════════════════════════════════ */
-function shuffle(a){return [...a].sort(()=>Math.random()-.5);}
-function getGrade(pts){let g=GRADES[0];for(const gr of GRADES)if(pts>=gr.min)g=gr;return g;}
+/* HELPERS */
+function shuffle(a){return[...a].sort(()=>Math.random()-.5);}
+function getGrade(p){let g=GRADES[0];for(const gr of GRADES)if(p>=gr.min)g=gr;return g;}
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
 function selectDiff(btn){document.querySelectorAll('.diff-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');selectedDiff=btn.dataset.diff;}
+function stopAllMedia(){document.querySelectorAll('audio,video').forEach(el=>{try{el.pause();el.currentTime=0;}catch(e){}});}
 
-/* ══════════════════════════════════════════
-   UPDATE UI
-══════════════════════════════════════════ */
+/* TIMER */
+function startTimer(){
+  clearInterval(timerInterval);timerLeft=TIMER_MAX;updateTimerUI();
+  timerInterval=setInterval(()=>{timerLeft--;updateTimerUI();if(timerLeft<=0){clearInterval(timerInterval);onTimeout();}},1000);
+}
+function stopTimer(){clearInterval(timerInterval);timerInterval=null;}
+function updateTimerUI(){
+  const fill=document.getElementById('timerFill'),num=document.getElementById('timerNum');
+  fill.style.width=(timerLeft/TIMER_MAX*100)+'%';num.textContent=timerLeft;
+  const d=timerLeft<=8,w=timerLeft<=15&&!d;
+  fill.className='timer-bar-fill'+(d?' danger':w?' warn':'');
+  num.className='timer-num'+(d?' danger':w?' warn':'');
+}
+function onTimeout(){
+  if(answered)return;answered=true;stopAllMedia();
+  const q=questions[currentIdx];
+  document.querySelectorAll('.ans-btn').forEach(b=>b.disabled=true);
+  document.querySelectorAll('.ans-btn')[q.correct].classList.add('revealed');
+  streak=0;
+  const fb=document.getElementById('feedback');
+  let html=`<strong>⏱ Temps écoulé !</strong> La bonne réponse était : <em>${q.answers[q.correct]}</em>`;
+  if(q.anecdote)html+=`<br><em style="opacity:.75;font-size:13px;">💡 ${q.anecdote}</em>`;
+  fb.className='feedback wrong show';fb.innerHTML=html;
+  history.push({q,correct:false,pts:0,timeout:true});
+  showProofVideo(q);updateScoreUI();
+  document.getElementById('btnNext').style.display='inline-flex';
+  const ov=document.createElement('div');ov.className='timeout-overlay';ov.textContent='⏱ Temps écoulé !';
+  document.getElementById('qCard').appendChild(ov);setTimeout(()=>ov.remove(),1400);
+}
+
+/* SCORE UI */
 function updateScoreUI(){
   document.getElementById('scoreDisplay').textContent=score;
   document.getElementById('streakDisplay').textContent=streak+'🔥';
@@ -544,168 +465,156 @@ function updateScoreUI(){
   document.getElementById('gradeIcon').textContent=g.icon;
   document.getElementById('gradeName').textContent=g.name;
   document.getElementById('gradeDesc').textContent=g.desc;
-  const pct=Math.min(streak/5*100,100);
-  document.getElementById('comboFill').style.width=pct+'%';
-  document.getElementById('comboLabel').textContent=streak>=5?'🔥 Combo MAX ! +75% bonus !':`Série : ${streak} / 5 pour bonus max`;
+  document.getElementById('comboFill').style.width=Math.min(streak/5*100,100)+'%';
+  document.getElementById('comboLabel').textContent=streak>=5?'🔥 COMBO MAX ! +75% bonus !':`Série : ${streak}/5 pour bonus max`;
 }
 
-/* ══════════════════════════════════════════
-   START
-══════════════════════════════════════════ */
+/* START */
+function getSeen(){try{return JSON.parse(localStorage.getItem('pdф_seen')||'[]');}catch(e){return[];}}
+function saveSeen(arr){try{localStorage.setItem('pdф_seen',JSON.stringify(arr));}catch(e){}}
+
 function startQuiz(){
   playerName=document.getElementById('playerName').value.trim()||"Chevalier";
   let pool=selectedDiff==="all"?ALL_QUESTIONS:ALL_QUESTIONS.filter(q=>q.difficulty===selectedDiff);
-  if(pool.length===0){alert("Aucune question pour cette difficulté. Sélectionnez « Tout » ou une autre difficulté.");return;}
-  questions=shuffle(pool);
-  currentIdx=0;score=0;streak=0;correctCount=0;history=[];
-  showScreen('screen-quiz');
-  renderQuestion();
+  if(!pool.length){alert("Aucune question pour cette difficulté. Choisissez « Tout » ou une autre difficulté.");return;}
+
+  let seen=getSeen();
+  let unseen=pool.filter(q=>!seen.includes(q.text));
+
+  // Plus assez de questions non vues → toutes les questions ont été jouées
+  if(unseen.length<SERIES_SIZE){
+    saveSeen([]);
+    showScreen('screen-welcome');
+    updateUnseenCount();
+    alert("🏆 Bravo ! Vous avez répondu à toutes les questions de la banque ! La banque a été réinitialisée, prêt pour un nouveau défi ?");
+    return;
+  }
+
+  // Tire SERIES_SIZE questions parmi les non-vues
+  const picked=shuffle(unseen).slice(0,SERIES_SIZE);
+  // On mémorise pour marquer comme vues APRÈS la série (dans showResults)
+  window._pendingSeen=[...seen,...picked.map(q=>q.text)];
+
+  // Mélange les réponses de chaque question SANS changer la bonne réponse
+  questions=picked.map(q=>{
+    const correctText=q.answers[q.correct];
+    const shuffled=shuffle([...q.answers]);
+    return {...q, answers:shuffled, correct:shuffled.indexOf(correctText)};
+  });
+
+  currentIdx=0;score=0;streak=0;bestStreak=0;correctCount=0;history=[];
+  showScreen('screen-quiz');renderQuestion();
 }
 
-/* ══════════════════════════════════════════
-   RENDER QUESTION
-══════════════════════════════════════════ */
+/* RENDER */
 function renderQuestion(){
-  const q=questions[currentIdx];
-  answered=false;
-
-  // Progress
+  stopAllMedia();
+  const q=questions[currentIdx];answered=false;
   const pct=Math.round(currentIdx/questions.length*100);
   document.getElementById('progressFill').style.width=pct+'%';
   document.getElementById('progressText').textContent=`Question ${currentIdx+1} / ${questions.length}`;
   document.getElementById('progressPct').textContent=pct+'%';
-
-  // Difficulty
   const diff=document.getElementById('qDiffBadge');
   diff.className='q-difficulty '+q.difficulty;
-  const dl={facile:'🟢 Facile',moyen:'🟡 Moyen',dur:'🔴 Dur',extreme:'💀 Extrême'};
-  diff.textContent=dl[q.difficulty]||q.difficulty;
-
-  // Type badge
-  const tl={texte:'📝 Culture',image:'🖼️ Image',audio:'🎵 Audio',video:'🎬 Vidéo'};
-  document.getElementById('qTypeBadge').textContent=tl[q.type]||'📝';
-
-  // Text
+  diff.textContent={facile:'🟢 Facile',moyen:'🟡 Moyen',dur:'🔴 Dur',extreme:'💀 Extrême'}[q.difficulty]||q.difficulty;
+  document.getElementById('qTypeBadge').textContent={texte:'📝 Culture',image:'🖼️ Image',audio:'🎵 Audio',video:'🎬 Vidéo'}[q.type]||'📝';
   document.getElementById('qText').textContent=q.text;
 
-  // Media
-  const med=document.getElementById('qMedia');
-  med.innerHTML='';
+  /* Media */
+  const med=document.getElementById('qMedia');med.innerHTML='';
   if(q.media){
     med.style.display='block';
-    if(q.type==='image'){
-      const img=document.createElement('img');
-      img.src=q.media;img.alt="Image de la question";
-      img.onerror=()=>{med.innerHTML=`<div class="placeholder-media"><div class="ph-icon">🖼️</div><div class="ph-text">${q.media}</div></div>`;};
-      med.appendChild(img);
-    } else if(q.type==='audio'){
-      med.innerHTML=`<div class="audio-player"><div class="audio-icon">🎵</div><div class="audio-info"><div class="audio-label">Écoutez et identifiez le spectacle</div><audio controls src="${q.media}"><source src="${q.media}">Votre navigateur ne supporte pas l'audio.</audio></div></div>`;
-    } else if(q.type==='video'){
-      med.innerHTML=`<div class="video-wrap"><video controls><source src="${q.media}">Votre navigateur ne supporte pas la vidéo.</video></div>`;
-    }
-  } else {
-    med.style.display='none';
-  }
+    if(q.type==='image'){const img=document.createElement('img');img.src=q.media;img.alt="Image";img.onerror=()=>{med.innerHTML=`<div class="placeholder-media"><div class="ph-icon">🖼️</div><div class="ph-text">${q.media}</div></div>`;};med.appendChild(img);}
+    else if(q.type==='audio'){med.innerHTML=`<div class="audio-player"><div class="audio-icon">🎵</div><div class="audio-info"><div class="audio-label">Écoutez et identifiez le spectacle</div><audio controls src="${q.media}">Non supporté.</audio></div></div>`;}
+    else if(q.type==='video'){med.innerHTML=`<div class="video-wrap${q.portrait?' portrait':''}"><video controls src="${q.media}">Non supporté.</video></div>`;}
+  }else{med.style.display='none';}
 
-  // Answers
-  const grid=document.getElementById('answersGrid');
-  grid.innerHTML='';
-  const letters=['A','B','C','D'];
-  q.answers.forEach((ans,i)=>{
-    const btn=document.createElement('button');
-    btn.className='ans-btn';
-    btn.innerHTML=`<span class="ans-letter">${letters[i]}</span><span>${ans}</span>`;
-    btn.onclick=()=>selectAnswer(i);
-    grid.appendChild(btn);
-  });
+  /* Proof video reset */
+  const pv=document.getElementById('proofVideoWrap');pv.style.display='none';pv.innerHTML='';
 
-  // Reset feedback
-  const fb=document.getElementById('feedback');
-  fb.className='feedback';fb.innerHTML='';
+  /* Answers */
+  const grid=document.getElementById('answersGrid');grid.innerHTML='';
+  ['A','B','C','D'].forEach((l,i)=>{const btn=document.createElement('button');btn.className='ans-btn';btn.innerHTML=`<span class="ans-letter">${l}</span><span>${q.answers[i]}</span>`;btn.onclick=()=>selectAnswer(i);grid.appendChild(btn);});
+
+  document.getElementById('feedback').className='feedback';document.getElementById('feedback').innerHTML='';
   document.getElementById('btnNext').style.display='none';
-  updateScoreUI();
+  updateScoreUI();startTimer();
 }
 
-/* ══════════════════════════════════════════
-   SELECT ANSWER
-══════════════════════════════════════════ */
+/* PROOF VIDEO */
+function showProofVideo(q){
+  if(!q.proofVideo)return;
+  const wrap=document.getElementById('proofVideoWrap');wrap.style.display='block';
+  wrap.innerHTML=`<div class="proof-video${q.proofPortrait?' portrait':''}"><div class="proof-video-label">🎬 La preuve en vidéo !</div><video controls src="${q.proofVideo}">Non supporté.</video></div>`;
+}
+
+/* SELECT ANSWER */
 function selectAnswer(idx){
-  if(answered)return;
-  answered=true;
+  if(answered)return;answered=true;stopTimer();stopAllMedia();
   const q=questions[currentIdx];
-  const btns=document.querySelectorAll('.ans-btn');
-  btns.forEach(b=>b.disabled=true);
+  const btns=document.querySelectorAll('.ans-btn');btns.forEach(b=>b.disabled=true);
   const isOk=idx===q.correct;
   btns[idx].classList.add(isOk?'correct':'wrong');
   if(!isOk)btns[q.correct].classList.add('revealed');
-
+  const timeBonus=timerLeft>=25?1.5:timerLeft>=20?1.3:timerLeft>=15?1.15:1;
   const fb=document.getElementById('feedback');
   if(isOk){
-    streak++;correctCount++;
+    streak++;correctCount++;if(streak>bestStreak)bestStreak=streak;
     let pts=q.points;
-    if(streak>=5)pts=Math.round(pts*1.75);
-    else if(streak>=3)pts=Math.round(pts*1.35);
-    score+=pts;
-    const bonus=pts>q.points?` (+${pts-q.points} bonus 🔥)`:' ';
+    if(streak>=5)pts=Math.round(pts*1.75);else if(streak>=3)pts=Math.round(pts*1.35);
+    pts=Math.round(pts*timeBonus);score+=pts;
+    let bonus='';if(timeBonus>1)bonus+=' ⚡ rapidité';if(streak>=3)bonus+=` 🔥 ×${streak}`;
     let html=`<strong>✓ Bonne réponse !</strong> +${pts} points${bonus}`;
-    if(q.anecdote)html+=`<br><em style="opacity:.8;font-size:14px;">💡 ${q.anecdote}</em>`;
-    fb.className='feedback correct show';fb.innerHTML=html;
-    showStreakToast(streak);
+    if(q.anecdote)html+=`<br><em style="opacity:.75;font-size:13px;">💡 ${q.anecdote}</em>`;
+    fb.className='feedback correct show';fb.innerHTML=html;showStreakToast(streak);
     history.push({q,correct:true,pts});
-  } else {
+  }else{
     streak=0;
     let html=`<strong>✗ Mauvaise réponse.</strong> La bonne réponse était : <em>${q.answers[q.correct]}</em>`;
-    if(q.anecdote)html+=`<br><em style="opacity:.8;font-size:14px;">💡 ${q.anecdote}</em>`;
-    fb.className='feedback wrong show';fb.innerHTML=html;
-    history.push({q,correct:false,pts:0});
+    if(q.anecdote)html+=`<br><em style="opacity:.75;font-size:13px;">💡 ${q.anecdote}</em>`;
+    fb.className='feedback wrong show';fb.innerHTML=html;history.push({q,correct:false,pts:0});
   }
-  updateScoreUI();
-  document.getElementById('btnNext').style.display='inline-flex';
+  showProofVideo(q);updateScoreUI();document.getElementById('btnNext').style.display='inline-flex';
 }
 
 function showStreakToast(s){
   if(s<2)return;
-  const msgs={2:'🔥 2 de suite !',3:'🔥 Série de 3 ! +35% bonus',4:'🔥 Série de 4 ! Continue !',5:'⚡ COMBO x5 ! +75% bonus !!'};
-  const msg=msgs[Math.min(s,5)]||`⚡ COMBO x${s} ! Légendaire !`;
-  const t=document.createElement('div');t.className='streak-toast';t.textContent=msg;
-  document.body.appendChild(t);setTimeout(()=>t.remove(),2400);
+  const m={2:'🔥 2 de suite !',3:'🔥 Série de 3 ! +35%',4:'🔥 Série de 4 !',5:'⚡ COMBO ×5 ! +75% !!'}[Math.min(s,5)]||`⚡ COMBO ×${s} !`;
+  const t=document.createElement('div');t.className='streak-toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2400);
 }
 
-/* ══════════════════════════════════════════
-   NEXT / RESULTS
-══════════════════════════════════════════ */
+/* NEXT */
 function nextQuestion(){
-  currentIdx++;
+  stopAllMedia();stopTimer();currentIdx++;
   if(currentIdx>=questions.length)showResults();
   else{renderQuestion();window.scrollTo({top:0,behavior:'smooth'});}
 }
 
+/* RESULTS */
 function showResults(){
+  stopAllMedia();stopTimer();
+  // Marque les questions jouées comme vues seulement maintenant
+  if(window._pendingSeen){saveSeen(window._pendingSeen);window._pendingSeen=null;}
   showScreen('screen-results');
-  const g=getGrade(score);
-  const pct=Math.round(correctCount/questions.length*100);
+  const g=getGrade(score),pct=Math.round(correctCount/questions.length*100);
   document.getElementById('resTrophy').textContent=g.icon;
   document.getElementById('resGrade').textContent=g.name;
-  document.getElementById('resScore').textContent=`${playerName} — Score final : ${score} points`;
-  document.getElementById('resCorrect').textContent=correctCount;
-  document.getElementById('resTotal').textContent=questions.length;
+  document.getElementById('resScore').textContent=`${playerName} — ${score} points`;
+  document.getElementById('resCorrect').textContent=`${correctCount}/${questions.length}`;
   document.getElementById('resPct').textContent=pct+'%';
-
+  document.getElementById('resBest').textContent=bestStreak+'🔥';
+  let msg=MSGS[0].msg;for(const m of MSGS)if(pct>=m.min)msg=m.msg;
+  document.getElementById('resMessage').textContent=`« ${msg} »`;
   const recap=document.getElementById('recapList');
-  recap.innerHTML='<div style="font-family:\'Cinzel\',serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;opacity:.7;">Récapitulatif</div>';
-  history.forEach(({q,correct,pts})=>{
-    const dc=DIFF_COLORS[q.difficulty]||DIFF_COLORS.facile;
+  recap.innerHTML='<div class="recap-header">Récapitulatif de la série</div>';
+  history.forEach(({q,correct,pts,timeout})=>{
+    const dc=DC[q.difficulty]||DC.facile;
     const div=document.createElement('div');div.className='recap-item';
-    div.innerHTML=`
-      <div class="recap-icon">${correct?'✅':'❌'}</div>
-      <div class="recap-q">${q.text.length>60?q.text.slice(0,60)+'…':q.text}</div>
-      <div class="recap-diff" style="background:${dc.bg};border:1px solid ${dc.border};color:${dc.color}">${q.difficulty}</div>
-      <div class="recap-pts">${correct?'+'+pts+' pts':'0 pt'}</div>`;
+    div.innerHTML=`<div class="recap-icon">${timeout?'⏱':correct?'✅':'❌'}</div><div class="recap-q">${q.text.length>58?q.text.slice(0,58)+'…':q.text}</div><div class="recap-diff" style="background:${dc.bg};border:1px solid ${dc.border};color:${dc.color}">${q.difficulty}</div><div class="recap-pts">${correct?'+'+pts+' pts':timeout?'⏱ 0':'0 pt'}</div>`;
     recap.appendChild(div);
   });
 }
-
-function restartQuiz(){showScreen('screen-welcome');}
+function goHome(){stopAllMedia();stopTimer();showScreen('screen-welcome');updateUnseenCount();}
 </script>
 </body>
 </html>
