@@ -180,7 +180,7 @@ body{font-family:'EB Garamond',serif;background:var(--dark);color:var(--parchmen
         <span class="badge">🖼️ Images</span><span class="badge">🎵 Audio</span><span class="badge">🎬 Vidéo</span><span class="badge">⏱️ 30 sec/question</span>
       </div>
       <div class="series-info">
-        Banque : <span id="totalQCount">?</span> questions &nbsp;·&nbsp; Série : <span>15 questions</span> tirées au sort &nbsp;·&nbsp; Restantes : <span id="unseenCount">?</span>
+        Banque : <span id="totalQCount">?</span> questions &nbsp;·&nbsp; Prochaine série : <span id="nextSerieSize">15 questions</span> &nbsp;·&nbsp; Restantes : <span id="unseenCount">?</span>
       </div>
       <div class="name-section">
         <label for="playerName">Votre nom, Chevalier</label>
@@ -409,9 +409,13 @@ document.getElementById('totalQCount').textContent=ALL_QUESTIONS.length;
 function updateUnseenCount(){
   const seen=getSeen();
   const unseen=ALL_QUESTIONS.filter(q=>!seen.includes(q.text)).length;
+  const nextSerie=Math.min(SERIES_SIZE, unseen);
   const el=document.getElementById('unseenCount');
   if(unseen===ALL_QUESTIONS.length) el.textContent=unseen+' (toutes !)';
   else el.textContent=unseen+' restantes';
+  // Met à jour le nombre de questions de la prochaine série
+  const serieEl=document.getElementById('nextSerieSize');
+  if(serieEl) serieEl.textContent=nextSerie+' questions';
 }
 updateUnseenCount();
 
@@ -481,8 +485,8 @@ function startQuiz(){
   let seen=getSeen();
   let unseen=pool.filter(q=>!seen.includes(q.text));
 
-  // Plus assez de questions non vues → toutes les questions ont été jouées
-  if(unseen.length<SERIES_SIZE){
+  // Plus aucune question non vue → toutes jouées → reset et retour accueil
+  if(unseen.length===0){
     saveSeen([]);
     showScreen('screen-welcome');
     updateUnseenCount();
@@ -490,9 +494,9 @@ function startQuiz(){
     return;
   }
 
-  // Tire SERIES_SIZE questions parmi les non-vues
-  const picked=shuffle(unseen).slice(0,SERIES_SIZE);
-  // On mémorise pour marquer comme vues APRÈS la série (dans showResults)
+  // Dernière série : on prend ce qu'il reste même si < SERIES_SIZE
+  const serieSize=Math.min(SERIES_SIZE, unseen.length);
+  const picked=shuffle(unseen).slice(0,serieSize);
   window._pendingSeen=[...seen,...picked.map(q=>q.text)];
 
   // Mélange les réponses de chaque question SANS changer la bonne réponse
